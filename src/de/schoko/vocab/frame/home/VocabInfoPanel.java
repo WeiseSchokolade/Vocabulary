@@ -109,7 +109,16 @@ public class VocabInfoPanel extends JPanel {
 	public void displayHelp() {
 		this.removeAll();
 		this.setVisible(true);
-		JTextArea text = new JTextArea("A help menu will be displayed here!");
+		JTextArea text = new JTextArea("A help menu will be displayed here!\n"
+				+ "What will come next?\n"
+				+ "- Improve Strings\n"
+				+ "- Add help menu\n"
+				+ "- Add translation options\n"
+				+ "- Add more settings\n"
+				+ "- Add styleguide\n"
+				+ "- Add alternative ways of asking vocabulary\n"
+				+ "- Add launch4j / Use a launch4j plugin\n"
+				+ "- Add <insert your suggestion here>");
 		text.setEditable(false);
 		text.setFont(getFont());
 		JScrollPane scrollPane = new JScrollPane(text);
