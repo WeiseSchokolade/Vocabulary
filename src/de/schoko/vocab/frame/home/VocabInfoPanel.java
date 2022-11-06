@@ -109,7 +109,7 @@ public class VocabInfoPanel extends JPanel {
 	public void displayHelp() {
 		this.removeAll();
 		this.setVisible(true);
-		JTextArea text = new JTextArea("OK Bro...");
+		JTextArea text = new JTextArea("A help menu will be displayed here!");
 		text.setEditable(false);
 		text.setFont(getFont());
 		JScrollPane scrollPane = new JScrollPane(text);
