@@ -1,0 +1,105 @@
+package de.schoko.vocab.frame.asking;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.io.File;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+
+import de.schoko.vocab.GenericDataHolder;
+import de.schoko.vocab.Vocab;
+import de.schoko.vocab.resources.Strings;
+import de.schoko.utility.SwingUtility;
+
+public class QuestionSubLabel extends JPanel {
+	private static final long serialVersionUID = 829553147359472212L;
+	private JLabel translationLabel;
+	private JProgressBar progressBar;
+	
+	private double progressBarValue;
+	
+	public QuestionSubLabel() {
+		this.setLayout(new GridLayout(3, 1));
+		
+		Vocab vocab = GenericDataHolder.getVocab();
+		progressBarValue = 0;
+		
+		JPanel barPanel = new JPanel();
+		barPanel.setLayout(new BorderLayout(0, 0));
+		SwingUtility.addPadding(barPanel, 25, 25, new String[]{BorderLayout.WEST, BorderLayout.EAST, BorderLayout.SOUTH});
+		
+		progressBar = new JProgressBar(0, vocab.getVocabulary().length * 10);
+		progressBar.setBackground(Color.BLACK);
+		progressBar.setForeground(new Color(80, 236, 71));
+		progressBar.setBorderPainted(false);
+		progressBar.setFont(new Font("Arial", Font.BOLD, 15));
+		progressBar.setStringPainted(true);
+		progressBar.setString(Strings.LOADING);
+		barPanel.add(progressBar, BorderLayout.NORTH);
+		
+		JLabel lastVocab = new JLabel("");
+		lastVocab.setHorizontalAlignment(JLabel.CENTER);
+		lastVocab.setVerticalAlignment(JLabel.CENTER);
+		lastVocab.setFont(new Font("Arial", Font.BOLD, 20));
+		barPanel.add(lastVocab, BorderLayout.CENTER);
+		
+		this.add(barPanel);
+		
+		JPanel infoPanel = new JPanel();
+		infoPanel.setLayout(new GridLayout(3, 1));
+		
+		JLabel infoLabel = new JLabel();
+		infoLabel.setText(Strings.fillIn(Strings.PROMPT_TRANSLATE, vocab.getFirstLanguage()));
+		infoLabel.setHorizontalAlignment(JLabel.CENTER);
+		infoLabel.setVerticalAlignment(JLabel.CENTER);
+		infoPanel.add(infoLabel);
+		
+		translationLabel = new JLabel();
+		translationLabel.setText(Strings.LOADING);
+		translationLabel.setHorizontalAlignment(JLabel.CENTER);
+		translationLabel.setVerticalAlignment(JLabel.CENTER);
+		translationLabel.setOpaque(true);
+		translationLabel.setFont(new Font("Arial", Font.BOLD, 30));
+		infoPanel.add(translationLabel);
+		
+		
+		JPanel subPanel = new JPanel();
+		subPanel.setLayout(new FlowLayout());
+		InputPanel l = new InputPanel(lastVocab);
+		l.setMaximumSize(new Dimension(500000, 100));
+		subPanel.add(l);
+		subPanel.setOpaque(true);
+		infoPanel.add(subPanel);
+		
+		this.add(infoPanel);
+		
+	}
+	
+	@Override
+	public void paint(Graphics g) {
+		updateTranslation();
+		
+		super.paint(g);
+	}
+	
+	private void updateTranslation() {
+		Vocab vocab = GenericDataHolder.getVocab();
+		
+		if (progressBarValue < vocab.getTotal() * 10) {
+			progressBarValue += 0.05;
+			this.repaint();
+		}
+		
+		String wordsToTranslate = vocab.getWordsToTranslate()[0];
+		translationLabel.setText(wordsToTranslate);
+		progressBar.setValue((int) (progressBarValue));
+		progressBar.setString(vocab.getTotal() + File.separator + vocab.getVocabulary().length);
+	}
+}
