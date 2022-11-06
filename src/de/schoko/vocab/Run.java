@@ -8,8 +8,6 @@ import de.schoko.utility.SwingUtility;
 
 public class Run {
 	public static void main(String[] args) {
-		// TODO: Github
-		
 		try {
 			Preloader preloader = new Preloader();
 			SwingUtility.setupSystemLookAndFeel();
