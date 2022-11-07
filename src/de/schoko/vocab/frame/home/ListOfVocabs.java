@@ -170,7 +170,7 @@ public class ListOfVocabs extends JPanel {
 	}
 	
 	private void removeAllComponents() {
-		this.removeAll();
-		this.repaint();
+		this.area.removeAll();
+		this.area.repaint();
 	}
 }
