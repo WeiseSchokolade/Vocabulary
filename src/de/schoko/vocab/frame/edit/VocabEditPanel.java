@@ -1,6 +1,7 @@
 package de.schoko.vocab.frame.edit;
 
 import java.awt.BorderLayout;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,7 +16,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import de.schoko.utility.Keyboard;
 import de.schoko.utility.Logging;
 import de.schoko.vocab.GenericDataHolder;
 import de.schoko.vocab.Preloader;
@@ -30,7 +30,7 @@ public class VocabEditPanel extends JPanel {
 	private CheckingFrame checkingFrame;
 	
 	public VocabEditPanel(File file) {
-		// TODO: Styleguide für Benutzer zur Eingabe von Vokabeln
+		// TODO: Styleguide fÃ¼r Benutzer zur Eingabe von Vokabeln
 		
 		this.setLayout(new BorderLayout());
 		checkingFrame = new CheckingFrame();
@@ -58,12 +58,12 @@ public class VocabEditPanel extends JPanel {
 				Logging.logInfo("Saved file " + file.getAbsolutePath());
 				fileWriter.close();
 				String vocabLocalPath = file.getAbsolutePath().substring(Preloader.get().getVocabLocation().length() + 1);
-				System.out.println(Preloader.get().getVocabLoader().reloadFromFile(vocabLocalPath).getVocabulary().length);
+				Preloader.get().getVocabLoader().reloadFromFile(vocabLocalPath);
 			} catch (IOException e) {
 				Logging.logException(e);
 			}
 		});
-		saveItem.setMnemonic(Keyboard.VK_S);
+		saveItem.setMnemonic(KeyEvent.VK_S);
 		menu.add(saveItem);
 		
 		JMenuItem checkItem = new JMenuItem(Strings.MENUBAR_FILE_CHECK);
@@ -75,7 +75,7 @@ public class VocabEditPanel extends JPanel {
 				checkingFrame.update(textArea.getText(), e);
 			}
 		});
-		checkItem.setMnemonic(Keyboard.VK_C);
+		checkItem.setMnemonic(KeyEvent.VK_C);
 		menu.add(checkItem);
 		
 		JMenuItem closeItem = new JMenuItem(Strings.MENUBAR_FILE_CLOSE);
