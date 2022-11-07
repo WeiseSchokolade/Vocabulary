@@ -13,13 +13,18 @@ public class ContinuePanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	public ContinuePanel() {
-		this.setLayout(new BorderLayout());
 		JButton continueButton = new JButton(Strings.BUTTON_CONTINUE);
 		continueButton.addActionListener((event) -> {
 			GenericDataHolder.mainMenu();
 		});
-		continueButton.requestFocusInWindow();
-		continueButton.setPreferredSize(new Dimension(100, 30));
+		continueButton.setPreferredSize(new Dimension(150, 30));
 		this.add(continueButton, BorderLayout.EAST);
+		JButton retryButton = new JButton(Strings.BUTTON_RETRY);
+		retryButton.addActionListener((event) -> {
+			GenericDataHolder.start(GenericDataHolder.getVocab().copy());
+		});
+		retryButton.setPreferredSize(new Dimension(150, 30));
+		this.add(retryButton, BorderLayout.WEST);
+		continueButton.requestFocusInWindow();
 	}
 }
