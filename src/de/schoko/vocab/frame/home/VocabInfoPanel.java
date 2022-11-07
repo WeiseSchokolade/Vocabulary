@@ -118,6 +118,7 @@ public class VocabInfoPanel extends JPanel {
 				+ "- Add styleguide\n"
 				+ "- Add alternative ways of asking vocabulary\n"
 				+ "- Add launch4j / Use a launch4j plugin\n"
+				+ "- Add a quit button in the Asking section\n"
 				+ "- Add <insert your suggestion here>");
 		text.setEditable(false);
 		text.setFont(getFont());
