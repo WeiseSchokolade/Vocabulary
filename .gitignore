@@ -1,9 +1,8 @@
-/.settings/*
-/bin
-/target
-/vocab
-/vocab/*
-/local-maven-repo
+.settings/
+bin/
+target/
+vocab/
+local-maven-repo/
 /.project
 /.classpath
 /build.bat
