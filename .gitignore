@@ -1,5 +1,5 @@
 /.settings
-bin
+/bin
 target
 vocab
 local-maven-repo
