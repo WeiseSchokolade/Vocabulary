@@ -33,7 +33,7 @@ public class InputPanel extends JPanel {
 		this.lastVocab = lastVocab;
 		
 		textField = new JTextField();
-		textField.setPreferredSize(new Dimension(100, 20));
+		textField.setPreferredSize(new Dimension(200, 20));
 		textField.addKeyListener(new KeyListener() {@Override public void keyTyped(KeyEvent e) {} @Override public void keyReleased(KeyEvent e) {}
 			@Override
 			public void keyPressed(KeyEvent e) {
