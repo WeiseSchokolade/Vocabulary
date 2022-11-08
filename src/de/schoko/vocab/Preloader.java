@@ -24,6 +24,8 @@ public class Preloader {
 	
 	private static Preloader instance;
 	
+	private String styleguideText = "";
+	
 	public Preloader() {
 		instance = this;
 		Logging.logInfo("Preloader instanciated");
@@ -46,7 +48,6 @@ public class Preloader {
 		
 		Map<String, String> translations = new HashMap<>();
 		try {
-			System.out.println(InternalResourceList.TRANSLATION_LOCATION);
 			InputStream in = getClass().getResourceAsStream(InternalResourceList.TRANSLATION_LOCATION);
 			BufferedReader fileReader = new BufferedReader(new InputStreamReader(in));
 			
@@ -70,6 +71,22 @@ public class Preloader {
 		}
 		StringLoader stringLoader = new StringLoader();
 		stringLoader.load(translations);
+		
+		try {
+			InputStream in = getClass().getResourceAsStream(InternalResourceList.STYLEGUIDE_LOCATION);
+			BufferedReader fileReader = new BufferedReader(new InputStreamReader(in));
+			String s = "";
+			String line;
+			while ((line = fileReader.readLine()) != null) {
+				s += line + "<br>";
+			}
+			this.styleguideText = s;
+			
+			in.close();
+			fileReader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private String checkAndCreateDir(String path) throws LoadException {
@@ -98,5 +115,9 @@ public class Preloader {
 	
 	public VocabLoader getVocabLoader() {
 		return vocabLoader;
+	}
+
+	public String getStyleguideText() {
+		return styleguideText;
 	}
 }

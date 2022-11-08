@@ -28,12 +28,14 @@ public class VocabEditPanel extends JPanel {
 	private static final long serialVersionUID = -8657970039727612284L;
 	
 	private CheckingFrame checkingFrame;
+	private TextFrame styleguideFrame;
 	
 	public VocabEditPanel(File file) {
-		// TODO: Styleguide für Benutzer zur Eingabe von Vokabeln
-		
 		this.setLayout(new BorderLayout());
 		checkingFrame = new CheckingFrame();
+		styleguideFrame = new TextFrame(() -> {
+			return Preloader.get().getStyleguideText();
+		});
 		
 		String text = "un exemple - ein Beispiel";
 		try {
@@ -49,7 +51,7 @@ public class VocabEditPanel extends JPanel {
 		this.add(scrollPane, BorderLayout.CENTER);
 		
 		JMenuBar menuBar = new JMenuBar();
-		JMenu menu = new JMenu(Strings.MENUBAR_FILE);
+		JMenu fileMenu = new JMenu(Strings.MENUBAR_FILE);
 		JMenuItem saveItem = new JMenuItem(Strings.MENUBAR_FILE_SAVE);
 		saveItem.addActionListener((event) -> {
 			try {
@@ -64,7 +66,7 @@ public class VocabEditPanel extends JPanel {
 			}
 		});
 		saveItem.setMnemonic(KeyEvent.VK_S);
-		menu.add(saveItem);
+		fileMenu.add(saveItem);
 		
 		JMenuItem checkItem = new JMenuItem(Strings.MENUBAR_FILE_CHECK);
 		checkItem.addActionListener((event) -> {
@@ -76,7 +78,8 @@ public class VocabEditPanel extends JPanel {
 			}
 		});
 		checkItem.setMnemonic(KeyEvent.VK_C);
-		menu.add(checkItem);
+		fileMenu.add(checkItem);
+		menuBar.add(fileMenu);
 		
 		JMenuItem closeItem = new JMenuItem(Strings.MENUBAR_FILE_CLOSE);
 		closeItem.addActionListener((event) -> {
@@ -96,10 +99,21 @@ public class VocabEditPanel extends JPanel {
 					Logging.logException(e);
 				}
 			}
+			this.checkingFrame.dispose();
+			this.checkingFrame.setVisible(false);
+			this.styleguideFrame.dispose();
+			this.styleguideFrame.setVisible(false);
 			GenericDataHolder.mainMenu();
 		});
-		menu.add(closeItem);
-		menuBar.add(menu);
+		fileMenu.add(closeItem);
+		
+		JMenu helpMenu = new JMenu(Strings.MENUBAR_HELP);
+		JMenuItem styleguideItem = new JMenuItem(Strings.MENUBAR_HELP_STYLEGUIDE);
+		styleguideItem.addActionListener((event) -> {
+			styleguideFrame.setVisible(true);
+		});
+		helpMenu.add(styleguideItem);
+		menuBar.add(helpMenu);
 		Window.get().setJMenuBar(menuBar);
 	}
 }

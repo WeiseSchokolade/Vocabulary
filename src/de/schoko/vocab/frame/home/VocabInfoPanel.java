@@ -111,7 +111,6 @@ public class VocabInfoPanel extends JPanel {
 		this.setVisible(true);
 		JTextArea text = new JTextArea("A help menu will be displayed here!\n"
 				+ "What will come next?\n"
-				+ "- Improve Strings\n"
 				+ "- Add help menu\n"
 				+ "- Add translation options\n"
 				+ "- Add more settings\n"
