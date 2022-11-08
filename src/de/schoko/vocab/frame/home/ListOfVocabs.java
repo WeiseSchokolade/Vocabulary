@@ -44,7 +44,7 @@ public class ListOfVocabs extends JPanel {
 		bottomArea.setLayout(null);
 		bottomArea.setPreferredSize(new Dimension(300, 20));
 		bottomArea.setBackground(Color.YELLOW);
-		addButton(bottomArea, "Hilfe", "⁉", (event) -> {
+		addButton(bottomArea, Strings.BUTTON_SETTINGS, "⁉", (event) -> {
 			vocabInfoPanel.displayHelp();
 		});
 		this.add(bottomArea, BorderLayout.SOUTH);
