@@ -14,6 +14,6 @@ public class QuestionPanel extends JPanel {
 		this.setLayout(new BorderLayout(50, 50));
 		this.add(new QuestionSubLabel());
 		Window.get().setBottomInfoBar(new InfoBar());
-		SwingUtility.addPadding(this, 100, 100, new String[]{BorderLayout.WEST, BorderLayout.EAST});
+		SwingUtility.addPadding(this, 50, 100, new String[]{BorderLayout.WEST, BorderLayout.EAST});
 	}
 }

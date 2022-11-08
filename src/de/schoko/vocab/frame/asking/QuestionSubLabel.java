@@ -9,6 +9,7 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.io.File;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
@@ -35,6 +36,8 @@ public class QuestionSubLabel extends JPanel {
 		barPanel.setLayout(new BorderLayout(0, 0));
 		SwingUtility.addPadding(barPanel, 25, 25, new String[]{BorderLayout.WEST, BorderLayout.EAST, BorderLayout.SOUTH});
 		
+		JPanel barInnerPanel = new JPanel();
+		barInnerPanel.setLayout(new BorderLayout());
 		progressBar = new JProgressBar(0, vocab.getVocabulary().length * 10);
 		progressBar.setBackground(Color.BLACK);
 		progressBar.setForeground(new Color(80, 236, 71));
@@ -42,7 +45,11 @@ public class QuestionSubLabel extends JPanel {
 		progressBar.setFont(new Font("Arial", Font.BOLD, 15));
 		progressBar.setStringPainted(true);
 		progressBar.setString(Strings.LOADING);
-		barPanel.add(progressBar, BorderLayout.NORTH);
+		
+		barInnerPanel.add(progressBar);
+		SwingUtility.addPadding(barInnerPanel, 75, 25, new String[]{BorderLayout.WEST, BorderLayout.EAST});
+		
+		barPanel.add(barInnerPanel, BorderLayout.NORTH);
 		
 		JLabel lastVocab = new JLabel("");
 		lastVocab.setHorizontalAlignment(JLabel.CENTER);
@@ -79,7 +86,19 @@ public class QuestionSubLabel extends JPanel {
 		infoPanel.add(subPanel);
 		
 		this.add(infoPanel);
+		JPanel bottomPanel = new JPanel(new BorderLayout());
+		JPanel southBottomPanel = new JPanel();
 		
+		JButton backButton = new JButton(Strings.BUTTON_BACK_TO_MAIN_MENU);
+		backButton.addActionListener((event) -> {
+			GenericDataHolder.mainMenu();
+		});
+		backButton.setPreferredSize(new Dimension(150, 30));
+		southBottomPanel.add(backButton);
+		
+		bottomPanel.add(southBottomPanel, BorderLayout.SOUTH);
+		
+		this.add(bottomPanel);
 	}
 	
 	@Override
