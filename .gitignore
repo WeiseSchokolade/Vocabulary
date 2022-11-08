@@ -1,9 +1,8 @@
 /.settings
 /bin
-target
-vocab
+/target
+/vocab
 local-maven-repo
-src/vocab
 /.project
 /.classpath
 /build.bat
