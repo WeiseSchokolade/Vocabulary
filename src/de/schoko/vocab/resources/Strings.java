@@ -8,6 +8,7 @@ public class Strings {
 			ACTIVITY_MAIN_MENU = "Hauptmenü",
 			ADVICE_EDIT = "Klicke auf Bearbeiten um die Datei zu bearbeiten.",
 			BUTTON_BACK = "Zurück",
+			BUTTON_BACK_TO_MAIN_MENU = "Zurück zum Hauptmenü",
 			BUTTON_CONFIRM = "Bestätigen",
 			BUTTON_CONTINUE = "Weiter",
 			BUTTON_EDIT = "Bearbeiten",
@@ -68,7 +69,21 @@ public class Strings {
 	public static <T> String fillIn(String s, T value) {
 		return s.replaceFirst("%s", value.toString());
 	}
-	
+
+	/**
+	 * <p>Replaces the first occasion of {@code %s} with the given String.
+	 * The first occasion of {@code %s} is replaced with the first string from values
+	 * </p>
+	 * <p>
+	 * Example: <br>
+	 * Strings.fillIn("Hello %s, your age is %s!", new String[]{"foo", "42"})
+	 * will return "Hello foo, your age is 42!"
+	 * </p>
+	 * 
+	 * @param s The string to replace the value in
+	 * @param value The value to replace %s with
+	 * @return A new string with the replaced value
+	 */
 	public static String fillIn(String s, String... values) {
 		String ret = s;
 		for (int i = 0; i < values.length; i++) {
