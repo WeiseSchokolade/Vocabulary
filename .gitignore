@@ -2,7 +2,8 @@
 /bin
 /target
 /vocab
-local-maven-repo
+/vocab/Découvertes 4
+/local-maven-repo
 /.project
 /.classpath
 /build.bat
