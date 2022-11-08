@@ -1,0 +1,15 @@
+When writing a comment, start the line with #
+
+A pair of vocabulary is structured like this:
+word in first language - word in second language
+The words need to be seperated by ' - '.
+If you want to add multiple solutions, do it like this:
+first solution in first language; second solution - word in second language
+Of course this works on both sides
+
+Full example:
+
+# This was created by FooBar
+welcome - willkommen
+hello, hi, hey - hallo
+nice - nett; freundlich
