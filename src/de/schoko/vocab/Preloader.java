@@ -49,7 +49,7 @@ public class Preloader {
 		Map<String, String> translations = new HashMap<>();
 		try {
 			InputStream in = getClass().getResourceAsStream(InternalResourceList.TRANSLATION_LOCATION);
-			BufferedReader fileReader = new BufferedReader(new InputStreamReader(in));
+			BufferedReader fileReader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
 			
 			while (true) {
 				String line = fileReader.readLine();
@@ -74,7 +74,7 @@ public class Preloader {
 		
 		try {
 			InputStream in = getClass().getResourceAsStream(InternalResourceList.STYLEGUIDE_LOCATION);
-			BufferedReader fileReader = new BufferedReader(new InputStreamReader(in));
+			BufferedReader fileReader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
 			String s = "";
 			String line;
 			while ((line = fileReader.readLine()) != null) {
