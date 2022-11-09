@@ -65,12 +65,10 @@ public class ListOfVocabs extends JPanel {
 		
 		List<String> folders = new ArrayList<>();
 		List<String> txtFiles = new ArrayList<>();
-		List<String> otherFiles = new ArrayList<>();
 		for (String s : vocabFiles) {
 			if (s.endsWith(".vocab")) {
 				txtFiles.add(s);
-			} else if (s.split(".").length > 1) {
-				otherFiles.add(s);
+			} else if (s.split("\\.").length > 1) {
 			} else {
 				folders.add(s);
 			}
@@ -101,11 +99,6 @@ public class ListOfVocabs extends JPanel {
 		}
 		for (String s : txtFiles) {
 			addButton(area, StringUtility.removeFileExtensionIfExists(s, ".vocab"), "📝", (event) -> {
-				interact(s);
-			});
-		}
-		for (String s : otherFiles) {
-			addButton(area, s, "📄", (event) -> {
 				interact(s);
 			});
 		}
