@@ -21,15 +21,10 @@ public class Preloader {
 	private String jarLocation = "";
 	private String workspaceLocation = "";
 	private String vocabLocation = "";
-	/**
-	 * Language code from ISO 639-1
-	 * <br>
-	 * <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">List Of ISO 639-1 Codes On Wikipedia</a>
-	 */
-	private String languageCode = "";
 	private String languageLocation = "";
 	
 	private VocabLoader vocabLoader;
+	private Settings settings;
 	
 	private static Preloader instance;
 	
@@ -48,14 +43,15 @@ public class Preloader {
 		try {
 			jarLocation = new File(Empty.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent();
 		} catch (URISyntaxException e) {
-			throw new LoadException("Exception while getting location of jar: " + e.getMessage());
+			throw new LoadException("Exception while getting location of jar (workspace location): " + e.getMessage());
 		}
-		workspaceLocation = checkAndCreateDir(jarLocation + "\\" + "vocab");
+		workspaceLocation = checkAndCreateDir(jarLocation + File.separator + "vocab");
 		vocabLocation = workspaceLocation;
 		Logging.logInfo("Workspace Location: " + workspaceLocation);
 		this.vocabLoader = new VocabLoader();
+		this.settings = new Settings(workspaceLocation);
 		
-		languageCode = Locale.getDefault().getLanguage();
+		String languageCode = settings.getLanguageCode();
 		if (!ArrayUtility.contains(InternalResourceList.SUPPORTED_LANGUAGES, languageCode)) {
 			Logging.logWarning("Couldn't find " + languageCode + " in supported languages. Using default (english en).");
 			languageCode = Locale.ENGLISH.getLanguage();
@@ -87,7 +83,7 @@ public class Preloader {
 			fileReader.close();
 			Logging.logInfo("Successfully loaded " + translationAmount + " translation(s)");
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logging.logException(e);
 		}
 		
 		StringLoader stringLoader = new StringLoader();
@@ -106,7 +102,7 @@ public class Preloader {
 			in.close();
 			fileReader.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logging.logException(e);
 		}
 	}
 	
@@ -136,6 +132,10 @@ public class Preloader {
 	
 	public VocabLoader getVocabLoader() {
 		return vocabLoader;
+	}
+	
+	public Settings getSettings() {
+		return settings;
 	}
 
 	public String getStyleguideText() {
