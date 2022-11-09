@@ -114,7 +114,6 @@ public class VocabInfoPanel extends JPanel {
 				+ "- Add help menu\n"
 				+ "- Add translation options\n"
 				+ "- Add more settings\n"
-				+ "- Add styleguide\n"
 				+ "- Add alternative ways of asking vocabulary\n"
 				+ "- Add launch4j / Use a launch4j plugin\n"
 				+ "- Add <insert your suggestion here>");

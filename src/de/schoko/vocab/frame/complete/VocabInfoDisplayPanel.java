@@ -28,7 +28,7 @@ public class VocabInfoDisplayPanel extends JPanel {
 				"",
 				"",
 				Strings.fillIn(Strings.DISPLAY_GRADE,calcGrade((double) vocab.getRight() / (double) vocab.getTotal())),
-				"> 85% = " + Strings.GRADE_A + " | > 70% = " + Strings.GRADE_B + " | > 55% = " + Strings.GRADE_C + " | > 39% = " + Strings.GRADE_D + " | > 20% = " + Strings.GRADE_E + " | < 20% = " + Strings.GRADE_F + ""};
+				"> 87.5% = " + Strings.GRADE_A + " | > 75% = " + Strings.GRADE_B + " | > 62.5% = " + Strings.GRADE_C + " | > 50% = " + Strings.GRADE_D + " | > 33% = " + Strings.GRADE_E + " | < 33% = " + Strings.GRADE_F + ""};
 		int index = 0;
 		for (String s : stats) {
 			JLabel label = new JLabel();
@@ -99,20 +99,18 @@ public class VocabInfoDisplayPanel extends JPanel {
 	}
 	
 	private String calcGrade(double perc) {
-		if (perc < 0.2) {
-			return Strings.GRADE_F;
-		} else if (perc < 0.39) {
-			return Strings.GRADE_E;
-		} else if (perc < 0.55) {
-			return Strings.GRADE_D;
-		} else if (perc < 0.7) {
-			return Strings.GRADE_C;
-		} else if (perc < 0.85) {
-			return Strings.GRADE_B;
-		} else if (perc >= 0.85) {
+		if (perc >= 0.875) {
 			return Strings.GRADE_A;
+		} else if (perc >= 0.75) {
+			return Strings.GRADE_B;
+		} else if (perc >= 0.625) {
+			return Strings.GRADE_C;
+		} else if (perc >= 0.5) {
+			return Strings.GRADE_D;
+		} else if (perc >= 0.33) {
+			return Strings.GRADE_E;
 		} else {
-			return "???";
+			return Strings.GRADE_F;
 		}
 	}
 }
