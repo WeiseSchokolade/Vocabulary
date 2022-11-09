@@ -19,4 +19,4 @@ Currently it's only used for german to french but support for other languages wi
 This project currently requires Java 17.0.2 to be installed on your machine and on the path.
 
 ## Note
-Thank you to Klett (https://www.klett.de) for creating school books (One of the chapters can be found in this repository)
+Thank you to Klett (https://www.klett.de) for creating school books (Part of one of the chapters could be found as an example in this repository)
