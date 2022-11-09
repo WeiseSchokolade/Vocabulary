@@ -79,12 +79,42 @@ public class Logging {
 	}
 	
 	/**
-	 * Logs a message using {@link de.schoko.utility.Logging#log(String, String)}
-	 * @param info The message to be logged
+	 * Logs a message using {@link de.schoko.utility.Logging#log(String, String)} with the type "info"
+	 * @param message The message to be logged
 	 * 
 	 * @see de.schoko.utility.Logging#log(String, String)
 	 */
 	public static void logInfo(String message) {
 		log("info", message);
+	}
+
+	/**
+	 * Logs a message using {@link de.schoko.utility.Logging#log(String, String)} with the type "warning"
+	 * @param message The message to be logged
+	 * 
+	 * @see de.schoko.utility.Logging#log(String, String)
+	 */
+	public static void logWarning(String message) {
+		log("warning", message);
+	}
+
+	/**
+	 * Logs a message using {@link de.schoko.utility.Logging#log(String, String)} with the type "error"
+	 * @param message The message to be logged
+	 * 
+	 * @see de.schoko.utility.Logging#log(String, String)
+	 */
+	public static void logError(String message) {
+		log("error", message);
+	}
+
+	/**
+	 * Logs a message using {@link de.schoko.utility.Logging#log(String, String)} with the type "debug"
+	 * @param message The message to be logged
+	 * 
+	 * @see de.schoko.utility.Logging#log(String, String)
+	 */
+	public static void logDebug(String message) {
+		log("debug", message);
 	}
 }
