@@ -104,6 +104,7 @@ public class Preloader {
 		} catch (IOException e) {
 			Logging.logException(e);
 		}
+		Logging.logInfo("Running version " + System.getProperty("java.version"));
 	}
 	
 	private String checkAndCreateDir(String path) throws LoadException {
