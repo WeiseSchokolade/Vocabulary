@@ -8,11 +8,10 @@ Currently it's only used for german to french but support for other languages wi
 - Asking Vocabulary with multiple correct options
 - Vocab File Editor for creating your own vocabulary quizzes
 - Performance rating (based on percentage of correct answers)
+- 'Fill in the gap' questions
 
 ### Coming soon
-- Translations
-- Settings
-- Languages
+- Language option for quizzes
 - Several QoL updates
 
 ## Usage
