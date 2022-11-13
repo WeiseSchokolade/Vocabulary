@@ -5,6 +5,7 @@ public class InternalResourceList {
 			TRANSLATION_LOCATION = "/de/schoko/vocab/resources/translations.txt",
 			LANGUAGES_LOCATION = "/de/schoko/vocab/resources/",
 			STYLEGUIDE_LOCATION = "/de/schoko/vocab/resources/styleguide.txt",
+			VERSION_LOCATION = "/de/schoko/vocab/resources/version.txt",
 			RESOURCE_PATH_SEPERATOR = "/";
 	
 	public static final String[] SUPPORTED_LANGUAGES = {"de", "en"};

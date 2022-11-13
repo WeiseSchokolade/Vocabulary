@@ -45,7 +45,7 @@ public class ListOfVocabs extends JPanel {
 		bottomArea.setPreferredSize(new Dimension(300, 20));
 		bottomArea.setBackground(Color.YELLOW);
 		addButton(bottomArea, Strings.BUTTON_SETTINGS, "⁉", (event) -> {
-			vocabInfoPanel.displayHelp();
+			vocabInfoPanel.displaySettings();
 		});
 		this.add(bottomArea, BorderLayout.SOUTH);
 		this.update("");

@@ -22,6 +22,7 @@ import de.schoko.utility.SwingUtility;
 public class QuestionSubLabel extends JPanel {
 	private static final long serialVersionUID = 829553147359472212L;
 	private JLabel translationLabel;
+	private JLabel promptLabel;
 	private JProgressBar progressBar;
 	
 	private double progressBarValue;
@@ -62,11 +63,11 @@ public class QuestionSubLabel extends JPanel {
 		JPanel infoPanel = new JPanel();
 		infoPanel.setLayout(new GridLayout(3, 1));
 		
-		JLabel infoLabel = new JLabel();
-		infoLabel.setText(Strings.fillIn(Strings.PROMPT_TRANSLATE, vocab.getFirstLanguage()));
-		infoLabel.setHorizontalAlignment(JLabel.CENTER);
-		infoLabel.setVerticalAlignment(JLabel.CENTER);
-		infoPanel.add(infoLabel);
+		promptLabel = new JLabel();
+		promptLabel.setText(Strings.LOADING);
+		promptLabel.setHorizontalAlignment(JLabel.CENTER);
+		promptLabel.setVerticalAlignment(JLabel.CENTER);
+		infoPanel.add(promptLabel);
 		
 		translationLabel = new JLabel();
 		translationLabel.setText(Strings.LOADING);
@@ -79,7 +80,7 @@ public class QuestionSubLabel extends JPanel {
 		
 		JPanel subPanel = new JPanel();
 		subPanel.setLayout(new FlowLayout());
-		InputPanel l = new InputPanel(lastVocab);
+		InputPanel l = new InputPanel(lastVocab, promptLabel);
 		l.setMaximumSize(new Dimension(500000, 100));
 		subPanel.add(l);
 		subPanel.setOpaque(true);

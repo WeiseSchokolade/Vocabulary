@@ -1,5 +1,7 @@
 package de.schoko.vocab;
 
+import de.schoko.vocab.resources.Strings;
+
 public class VocabPair {
 	private String[] firstLanguagePair;
 	private String[] secondLanguagePair;
@@ -81,5 +83,18 @@ public class VocabPair {
 	
 	public int getType() {
 		return type;
+	}
+
+	public String getPrompt() {
+		if (type == EQUALLY_TRANSLATED_PAIR) {
+			String language = vocab.getFirstLanguage();
+			if (vocab.getDisplayFirst()) {
+				language = vocab.getSecondLanguage();
+			}
+			return Strings.fillIn(Strings.PROMPT_TRANSLATE, language);
+		} else if (type == PHRASE_WITH_GAP) {
+			return Strings.PROMPT_FILL_IN_GAP;
+		}
+		return "";
 	}
 }

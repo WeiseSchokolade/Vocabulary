@@ -5,8 +5,6 @@ import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 
 import de.schoko.vocab.GenericDataHolder;
 import de.schoko.vocab.Vocab;
@@ -106,14 +104,14 @@ public class VocabInfoPanel extends JPanel {
 		}
 	}
 
-	public void displayHelp() {
+	public void displaySettings() {
 		this.removeAll();
 		this.setVisible(true);
-		JTextArea text = new JTextArea("A help menu will be displayed here!\n"
+		
+		/**JTextArea text = new JTextArea("A help menu will be displayed here!\n"
+		 * TODO: This
 				+ "What will come next?\n"
 				+ "- Add help menu\n"
-				+ "- Add translation options\n"
-				+ "- Add more settings\n"
 				+ "- Add alternative ways of asking vocabulary\n"
 				+ "- Add launch4j / Use a launch4j plugin\n"
 				+ "- Add <insert your suggestion here>");
@@ -121,6 +119,7 @@ public class VocabInfoPanel extends JPanel {
 		text.setFont(getFont());
 		JScrollPane scrollPane = new JScrollPane(text);
 		scrollPane.setBorder(null);
-		this.add(scrollPane);
+		this.add(scrollPane);*/
+		this.add(new SettingsPanel());
 	}
 }

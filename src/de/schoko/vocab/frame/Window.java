@@ -2,8 +2,12 @@ package de.schoko.vocab.frame;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JFrame;
 
+import de.schoko.vocab.Preloader;
 import de.schoko.vocab.frame.home.HomePanel;
 import de.schoko.vocab.resources.InternalResourceList;
 import de.schoko.vocab.resources.Strings;
@@ -29,6 +33,14 @@ public class Window extends JFrame {
 		panel = new WindowPanel();
 		panel.add(new HomePanel());
 		this.add(panel);
+		
+		this.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				Preloader.get().getSettings().save();
+				e.getWindow().dispose();
+			}
+		});
 		
 		this.pack();
 		this.setLocationRelativeTo(null);

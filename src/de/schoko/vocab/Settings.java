@@ -86,4 +86,13 @@ public class Settings {
 	public String getLanguageCode() {
 		return languageCode;
 	}
+	
+	public String getWorkspaceLocation() {
+		return workspaceLocation;
+	}
+
+	public void setLanguage(String languageCode) {
+		this.languageCode = languageCode;
+		Preloader.get().loadLanguage(languageCode);
+	}
 }

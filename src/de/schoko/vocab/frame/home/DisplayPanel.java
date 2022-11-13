@@ -29,7 +29,7 @@ public class DisplayPanel extends JPanel {
 	public void display(Vocab vocab) {
 		this.removeAll();
 		
-		this.setBorder(new TitledBorder(Strings.MENU_SETTINGS));
+		this.setBorder(new TitledBorder(Strings.MENU_VOCAB_SETTINGS));
 		
 		JCheckBox languageCheckbox = new JCheckBox();
 		languageCheckbox.addActionListener((event) -> {
@@ -57,7 +57,7 @@ public class DisplayPanel extends JPanel {
 		displayText(new String[]{
 				vocab.getName(),
 				Strings.fillIn(Strings.DISPLAY_WORDS, vocab.getVocabulary().length),
-				Strings.fillIn(Strings.DISPLAY_LANGUAGE, vocab.getFirstLanguage()),
+				Strings.fillIn(Strings.DISPLAY_ASKED_LANGUAGE, vocab.getFirstLanguage()),
 				Strings.DISPLAY_ORDER + ":",
 				""});
 	}

@@ -22,6 +22,7 @@ public class Preloader {
 	private String workspaceLocation = "";
 	private String vocabLocation = "";
 	private String languageLocation = "";
+	private String languageCode;
 	
 	private VocabLoader vocabLoader;
 	private Settings settings;
@@ -51,11 +52,57 @@ public class Preloader {
 		this.vocabLoader = new VocabLoader();
 		this.settings = new Settings(workspaceLocation);
 		
-		String languageCode = settings.getLanguageCode();
+		languageCode = settings.getLanguageCode();
 		if (!ArrayUtility.contains(InternalResourceList.SUPPORTED_LANGUAGES, languageCode)) {
 			Logging.logWarning("Couldn't find " + languageCode + " in supported languages. Using default (english en).");
 			languageCode = Locale.ENGLISH.getLanguage();
 		}
+		
+		loadLanguage(languageCode);
+		
+		try {
+			InputStream in = getClass().getResourceAsStream(InternalResourceList.STYLEGUIDE_LOCATION);
+			BufferedReader fileReader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+			String s = "";
+			String line;
+			while ((line = fileReader.readLine()) != null) {
+				s += line + "<br>";
+			}
+			this.styleguideText = s;
+			
+			in.close();
+			fileReader.close();
+		} catch (IOException e) {
+			Logging.logException(e);
+		}
+		Logging.logInfo("Running java version " + System.getProperty("java.version"));
+		
+		String version = "Unknown";
+		try {
+			InputStream in = getClass().getResourceAsStream(InternalResourceList.VERSION_LOCATION);
+			BufferedReader fileReader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+			version = fileReader.readLine();
+			in.close();
+			fileReader.close();
+		} catch (IOException e) {
+			Logging.logException(e);
+		}
+		Logging.logInfo("Vocabulary Version " + version);
+	}
+	
+	private String checkAndCreateDir(String path) throws LoadException {
+		File file = new File(path);
+		if (!file.exists()) {
+			file.mkdir();
+		} else {
+			if (file.isFile()) {
+				throw new LoadException("Vocab location is not a directory");
+			}
+		}
+		return file.getAbsolutePath();
+	}
+	
+	public void loadLanguage(String languageCode) {
 		languageLocation = InternalResourceList.LANGUAGES_LOCATION + languageCode + InternalResourceList.RESOURCE_PATH_SEPERATOR;
 		Logging.logInfo("Language location: " + languageLocation);
 		
@@ -88,35 +135,6 @@ public class Preloader {
 		
 		StringLoader stringLoader = new StringLoader();
 		stringLoader.load(translations);
-		
-		try {
-			InputStream in = getClass().getResourceAsStream(InternalResourceList.STYLEGUIDE_LOCATION);
-			BufferedReader fileReader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
-			String s = "";
-			String line;
-			while ((line = fileReader.readLine()) != null) {
-				s += line + "<br>";
-			}
-			this.styleguideText = s;
-			
-			in.close();
-			fileReader.close();
-		} catch (IOException e) {
-			Logging.logException(e);
-		}
-		Logging.logInfo("Running version " + System.getProperty("java.version"));
-	}
-	
-	private String checkAndCreateDir(String path) throws LoadException {
-		File file = new File(path);
-		if (!file.exists()) {
-			file.mkdir();
-		} else {
-			if (file.isFile()) {
-				throw new LoadException("Vocab location is not a directory");
-			}
-		}
-		return file.getAbsolutePath();
 	}
 	
 	public String getJarLocation() {
@@ -141,5 +159,9 @@ public class Preloader {
 
 	public String getStyleguideText() {
 		return styleguideText;
+	}
+	
+	public String languageCode() {
+		return languageCode;
 	}
 }

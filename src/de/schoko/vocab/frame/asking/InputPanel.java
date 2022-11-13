@@ -24,13 +24,15 @@ public class InputPanel extends JPanel {
 	private JButton confirmButton;
 	private JTextField textField;
 	private JLabel lastVocab;
+	private JLabel promptLabel;
 	
-	public InputPanel(JLabel lastVocab) {
+	public InputPanel(JLabel lastVocab, JLabel promptLabel) {
 		super();
 		
 		this.setLayout(new BorderLayout(20, 0));
 		this.setOpaque(true);
 		this.lastVocab = lastVocab;
+		this.promptLabel = promptLabel;
 		
 		textField = new JTextField();
 		textField.setPreferredSize(new Dimension(200, 20));
@@ -55,6 +57,8 @@ public class InputPanel extends JPanel {
 			this.check();
 		});
 		this.add(confirmButton, BorderLayout.EAST);
+		
+		this.promptLabel.setText(GenericDataHolder.getVocab().getCurrentPair().getPrompt());
 	}
 	
 	public void check() {
@@ -76,6 +80,7 @@ public class InputPanel extends JPanel {
 			return;
 		}
 		textField.setText("");
+		promptLabel.setText(GenericDataHolder.getVocab().getCurrentPair().getPrompt());
 		confirmButton.setEnabled(false);
 		Window.get().repaint();
 	}

@@ -5,7 +5,10 @@ word in first language - word in second language
 The words need to be seperated by ' - '.
 If you want to add multiple solutions, do it like this:
 first solution in first language; second solution - word in second language
-Of course this works on both sides
+Of course this works on both sides.
+If you want to have a 'fill in the gap'-Question, use the left side of the ' - ' to ask the question and replaced the word the solution should be with ' _ '.
+The right side is the possible solutions for the gap. Currently there can only be one gap per question.
+This is a cool example, I repeat: This is a  _  example. - cool
 
 Full example:
 
@@ -13,3 +16,4 @@ Full example:
 welcome - willkommen
 hello, hi, hey - hallo
 nice - nett; freundlich
+Willkommen means  _  in Englisch - welcome
