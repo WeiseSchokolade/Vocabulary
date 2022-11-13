@@ -44,7 +44,7 @@ public class VocabLoader {
 			
 			InputStream input = new FileInputStream(file);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-			ArrayList<String[][]> vocab = new ArrayList<>();
+			ArrayList<VocabPair> vocab = new ArrayList<>();
 			boolean goOn = true;
 			int readLines = 0;
 			
@@ -60,9 +60,9 @@ public class VocabLoader {
 					break;
 				}
 				try {
-					String[][] loadedLine = loadLine(line.trim());
-					if (loadedLine != null) {
-						vocab.add(loadedLine);
+					VocabPair loadedVocabPair = loadLine(line.trim());
+					if (loadedVocabPair != null) {
+						vocab.add(loadedVocabPair);
 					}
 				} catch (FileParseException e) {
 					reader.close();
@@ -72,7 +72,7 @@ public class VocabLoader {
 			reader.close();
 			input.close();
 			
-			String[][][] vocabulary = new String[vocab.size()][2][];
+			VocabPair[] vocabulary = new VocabPair[vocab.size()];
 			for (int i = 0; i < vocabulary.length; i++) {
 				vocabulary[i] = vocab.get(i);
 			}
@@ -86,7 +86,7 @@ public class VocabLoader {
 		return null;
 	}
 	
-	private String[][] loadLine(String line) {
+	private VocabPair loadLine(String line) {
 		if (line.startsWith("#") || line.isBlank()) {
 			return null;
 		}
@@ -114,8 +114,7 @@ public class VocabLoader {
 		secondLangWords = extendArray(secondLangWords, "jdn.", new String[]{"jdn", "jemanden"});
 		secondLangWords = extendArray(secondLangWords, "jdm.", new String[]{"jdm", "jemandem"});
 		
-		String[][] parsedLine = {firstLangWords, secondLangWords};
-		return parsedLine;
+		return new VocabPair(firstLangWords, secondLangWords);
 	}
 	
 	private String[] extendArray(String[] arr, String extendableString, String[] extendings) {

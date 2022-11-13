@@ -116,7 +116,7 @@ public class QuestionSubLabel extends JPanel {
 			this.repaint();
 		}
 		
-		String wordsToTranslate = vocab.getWordsToTranslate()[0];
+		String wordsToTranslate = vocab.getAskedPhrase();
 		translationLabel.setText("<html>" + wordsToTranslate + "</html>");
 		progressBar.setValue((int) (progressBarValue));
 		progressBar.setString(vocab.getTotal() + File.separator + vocab.getVocabulary().length);

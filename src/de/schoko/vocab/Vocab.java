@@ -13,13 +13,13 @@ import de.schoko.utility.StringUtility;
 
 public class Vocab {
 	private String name;
-	private String[][][] vocabulary;
+	private VocabPair[] vocabulary;
 	private int current = 0;
 	private String firstLanguage = Strings.LANGUAGE_FIRST;
 	private String secondLanguage = Strings.LANGUAGE_SECOND;
 	private boolean displayFirst = false;
 	
-	private String[][] lastWords = {};
+	private VocabPair lastWords;
 	private String[] enteredWords;
 	private boolean[] correctWords;
 	
@@ -35,12 +35,15 @@ public class Vocab {
 	
 	private File sourceFile;
 	
-	public Vocab(String name, String[][][] vocabulary, File sourceFile) {
+	public Vocab(String name, VocabPair[] vocabulary, File sourceFile) {
 		this.name = name;
 		this.vocabulary = vocabulary;
 		this.sourceFile = sourceFile;
 		enteredWords = new String[vocabulary.length];
 		correctWords = new boolean[vocabulary.length];
+		for (VocabPair pair : this.vocabulary) {
+			pair.init(this);
+		}
 	}
 	
 	public void start() {
@@ -50,7 +53,7 @@ public class Vocab {
 			current = vocabulary.length - 1;
 		} else if (order == RANDOM_ORDER) {
 			current = 0;
-			List<String[][]> asList = Arrays.asList(vocabulary);
+			List<VocabPair> asList = Arrays.asList(vocabulary);
 			Collections.shuffle(asList);
 		}
 		Logging.logInfo("Started vocabulary " + name);
@@ -65,13 +68,8 @@ public class Vocab {
 	}
 	
 	public boolean checkAndNext(String s) throws VocabCompleteException {
-		String[][] currentPair = vocabulary[current];
-		String[] solution;
-		if (displayFirst) {
-			solution = (currentPair[1]);
-		} else {
-			solution = (currentPair[0]);
-		}
+		VocabPair currentPair = vocabulary[current];
+		String[] solution = currentPair.getSolutions();
 		
 		boolean correct = (StringUtility.unifiedContains(solution, s));
 		lastWords = currentPair;
@@ -102,38 +100,41 @@ public class Vocab {
 		return correct;
 	}
 
-	public String[] getWordsToTranslate() {
-		String[][] currentPair = vocabulary[current];
-		if (displayFirst) {
-			return currentPair[0];
-		} else {
-			return currentPair[1];
+	public String[] getDisplayedSolutions() {
+		String[] ret = new String[vocabulary.length];
+		for (int i = 0; i < ret.length; i++) {
+			ret[i] = vocabulary[i].getDisplayedSolution();
 		}
+		return ret;
 	}
 	
-	private String[][] getSide(int index) {
+	public String getAskedPhrase() {
+		return vocabulary[current].getAskedPhrase();
+	}
+	
+	private String[][] getSide(boolean isFirstSide) {
 		String[][] ret = new String[vocabulary.length][];
 		
 		for (int i = 0; i < ret.length; i++) {
-			ret[i] = vocabulary[i][index];
+			ret[i] = vocabulary[i].getLanguage(isFirstSide);
 		}
 		
 		return ret;
 	}
 	
 	public String[][] getFirstLanguageVocab() {
-		return getSide(0);
+		return getSide(true);
 	}
 	
 	public String[][] getSecondLanguageVocab() {
-		return getSide(1);
+		return getSide(false);
 	}
 	
 	public String getName() {
 		return this.name;
 	}
 	
-	public String[][][] getVocabulary() {
+	public VocabPair[] getVocabulary() {
 		return vocabulary;
 	}
 	
@@ -141,7 +142,7 @@ public class Vocab {
 		return current;
 	}
 	
-	public String[][] getCurrentPair() {
+	public VocabPair getCurrentPair() {
 		return vocabulary[current];
 	}
 
@@ -161,7 +162,7 @@ public class Vocab {
 		this.secondLanguage = secondLanguage;
 	}
 	
-	public String[][] getLastWords() {
+	public VocabPair getLastWordPair() {
 		return lastWords;
 	}
 	

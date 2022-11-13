@@ -69,9 +69,7 @@ public class InputPanel extends JPanel {
 			} else {
 				lastVocab.setForeground(Color.RED);
 			}
-			String[] firstLang = vocab.getLastWords()[0];
-			String[] secondLang = vocab.getLastWords()[1];
-			lastVocab.setText(firstLang[0] + " - " + secondLang[0]);
+			lastVocab.setText("<html><body>" + vocab.getLastWordPair().getSolutionString() + "</body></html>");
 			((InfoBar) Window.get().getBottomInfoBar()).setInfo(Strings.fillIn(Strings.DISPLAY_INFO, "" + vocab.getTotal(), "" + vocab.getRight(), "" + vocab.getWrong()), 2);
 		} catch (VocabCompleteException e) {
 			GenericDataHolder.complete();

@@ -76,15 +76,11 @@ public class VocabInfoDisplayPanel extends JPanel {
 		JScrollPane pane = new JScrollPane(jEditorPane);
 		wordsPanel.add(pane);
 		
-		String[][] words;
-		if (vocab.getDisplayFirst()) {
-			words = vocab.getSecondLanguageVocab();
-		} else {
-			words = vocab.getFirstLanguageVocab();
-		}
+		String[] words = vocab.getDisplayedSolutions();
+		
 		String displayedText = "<html>";
 		for (int i = 0; i < words.length; i++) {
-			String word = words[i][0];
+			String word = words[i];
 			displayedText += word + "<br>";
 		}
 		displayedText += "</html>";
