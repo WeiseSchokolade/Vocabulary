@@ -17,6 +17,7 @@ import javax.swing.JProgressBar;
 import de.schoko.vocab.GenericDataHolder;
 import de.schoko.vocab.Vocab;
 import de.schoko.vocab.resources.Strings;
+import de.schoko.vocab.resources.Style;
 import de.schoko.utility.SwingUtility;
 
 public class QuestionSubLabel extends JPanel {
@@ -94,7 +95,7 @@ public class QuestionSubLabel extends JPanel {
 		backButton.addActionListener((event) -> {
 			GenericDataHolder.mainMenu();
 		});
-		backButton.setPreferredSize(new Dimension(150, 30));
+		backButton.setFont(Style.BUTTON_FONT);
 		southBottomPanel.add(backButton);
 		
 		bottomPanel.add(southBottomPanel, BorderLayout.SOUTH);

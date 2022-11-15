@@ -17,6 +17,7 @@ import de.schoko.vocab.Vocab;
 import de.schoko.vocab.exceptions.VocabCompleteException;
 import de.schoko.vocab.frame.Window;
 import de.schoko.vocab.resources.Strings;
+import de.schoko.vocab.resources.Style;
 
 public class InputPanel extends JPanel {
 	private static final long serialVersionUID = -5599952273568147969L;
@@ -46,16 +47,17 @@ public class InputPanel extends JPanel {
 			}
 		});
 		textField.setFocusable(true);
+		textField.setFont(Style.INPUT_FIELD_FONT);
 		this.add(textField, BorderLayout.CENTER);
 		textField.requestFocusInWindow();
 		
 		confirmButton = new JButton(Strings.BUTTON_ENTER);
-		confirmButton.setPreferredSize(new Dimension(80, 20));
 		confirmButton.setEnabled(false);
 		confirmButton.addActionListener((event) -> {
 			checkButtonEnabledStatus();
 			this.check();
 		});
+		confirmButton.setFont(Style.BUTTON_FONT);
 		this.add(confirmButton, BorderLayout.EAST);
 		
 		this.promptLabel.setText(GenericDataHolder.getVocab().getCurrentPair().getPrompt());

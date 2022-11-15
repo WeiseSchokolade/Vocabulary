@@ -1,10 +1,8 @@
 package de.schoko.vocab.frame.home;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
@@ -20,6 +18,7 @@ import de.schoko.vocab.Vocab;
 import de.schoko.vocab.VocabLoader;
 import de.schoko.vocab.exceptions.FileParseException;
 import de.schoko.vocab.resources.Strings;
+import de.schoko.vocab.resources.Style;
 import de.schoko.utility.StringUtility;
 
 public class ListOfVocabs extends JPanel {
@@ -113,8 +112,7 @@ public class ListOfVocabs extends JPanel {
 	
 	private void addButton(Container c, String s, String prefix, ClickAction action) {
 		JLabel label = new JLabel();
-		Font font = label.getFont();
-		label.setFont(font.deriveFont(18.0f));
+		label.setFont(Style.LIST_BUTTON_FONT);
 		label.setText(" " + prefix + " " + StringUtility.makeFirstCharacterUppercase(s));
 		label.addMouseListener(new MouseListener() {
 			private boolean isHovering = false;

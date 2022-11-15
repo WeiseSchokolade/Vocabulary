@@ -39,6 +39,7 @@ public class VocabInfoPanel extends JPanel {
 		JPanel bottomPanel = new JPanel();
 		bottomPanel.setLayout(new BorderLayout());
 		confirmButton = new JButton(Strings.BUTTON_START);
+		confirmButton.setFont(Style.BUTTON_FONT);
 		confirmButton.addActionListener((event) -> {
 			GenericDataHolder.start(vocab);
 		});
@@ -52,6 +53,7 @@ public class VocabInfoPanel extends JPanel {
 				GenericDataHolder.edit(file);
 			}
 		});
+		editButton.setFont(Style.BUTTON_FONT);
 		bottomPanel.add(editButton, BorderLayout.WEST);
 		
 		this.add(bottomPanel, BorderLayout.SOUTH);
@@ -111,19 +113,6 @@ public class VocabInfoPanel extends JPanel {
 	public void displaySettings() {
 		this.removeAll();
 		this.setVisible(true);
-		
-		/**JTextArea text = new JTextArea("A help menu will be displayed here!\n"
-		 * TODO: This
-				+ "What will come next?\n"
-				+ "- Add help menu\n"
-				+ "- Add alternative ways of asking vocabulary\n"
-				+ "- Add launch4j / Use a launch4j plugin\n"
-				+ "- Add <insert your suggestion here>");
-		text.setEditable(false);
-		text.setFont(getFont());
-		JScrollPane scrollPane = new JScrollPane(text);
-		scrollPane.setBorder(null);
-		this.add(scrollPane);*/
 		this.add(new SettingsPanel());
 	}
 
@@ -152,7 +141,6 @@ public class VocabInfoPanel extends JPanel {
 		}
 		
 		JTextArea textArea = new JTextArea(text);
-		System.out.println(Style.INFO_FONT);
 		textArea.setFont(Style.INFO_FONT);
 		textArea.setBackground(null);
 		textArea.setEditable(false);
