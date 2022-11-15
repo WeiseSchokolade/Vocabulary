@@ -4,6 +4,7 @@ import javax.swing.JOptionPane;
 
 import de.schoko.vocab.exceptions.LoadException;
 import de.schoko.vocab.frame.Window;
+import de.schoko.vocab.resources.Style;
 import de.schoko.utility.SwingUtility;
 
 public class Run {
@@ -19,6 +20,7 @@ public class Run {
 				JOptionPane.showMessageDialog(null, "An exception occured while preloading:\n\n" + e.getMessage() + "\n\nPlease report this to the author of the project", "Loading Exception", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
+			Style.load();
 			new Window();
 		} catch (Exception e) {
 			e.printStackTrace();
