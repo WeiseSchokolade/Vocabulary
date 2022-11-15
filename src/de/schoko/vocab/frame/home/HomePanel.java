@@ -15,6 +15,7 @@ public class HomePanel extends JPanel {
 		this.setPreferredSize(new Dimension(600, 600));
 		
 		vocabInfoPanel = new VocabInfoPanel();
+		vocabInfoPanel.setBorder(null);
 		this.add(vocabInfoPanel, BorderLayout.CENTER);
 		this.setBackground(Color.WHITE);
 		

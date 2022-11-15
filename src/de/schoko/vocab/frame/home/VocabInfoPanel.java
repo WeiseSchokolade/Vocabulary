@@ -5,11 +5,15 @@ import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 import de.schoko.vocab.GenericDataHolder;
+import de.schoko.vocab.Preloader;
 import de.schoko.vocab.Vocab;
 import de.schoko.vocab.exceptions.FileParseException;
 import de.schoko.vocab.resources.Strings;
+import de.schoko.vocab.resources.Style;
 import de.schoko.utility.SwingUtility;
 
 public class VocabInfoPanel extends JPanel {
@@ -121,5 +125,40 @@ public class VocabInfoPanel extends JPanel {
 		scrollPane.setBorder(null);
 		this.add(scrollPane);*/
 		this.add(new SettingsPanel());
+	}
+
+	public void displayInfo() {
+		this.removeAll();
+		this.setVisible(true);
+		
+		final String[] texts = {
+				"Version: " + Preloader.get().getVersion().trim() + " (Commit " + Preloader.get().getCommit() + ")",
+				"Made by WeiseSchokolade",
+				"Source code can be found at https://github.com/WeiseSchokolade/Vocabulary",
+				"",
+				"",
+				"TO DO", // TODO Here are tasks that need to be done.
+				"- Add/configure launch4j",
+				"- Configure style",
+				"- Confirm Button for Settings Menu",
+				"- Website?",
+				"- Support for Java 8?"
+		};
+		
+		String text = "";
+		
+		for (String s : texts) {
+			text += s + "\n";
+		}
+		
+		JTextArea textArea = new JTextArea(text);
+		System.out.println(Style.INFO_FONT);
+		textArea.setFont(Style.INFO_FONT);
+		textArea.setBackground(null);
+		textArea.setEditable(false);
+		textArea.setFocusable(false);
+		JScrollPane scrollPane = new JScrollPane(textArea);
+		scrollPane.setBorder(null);
+		this.add(scrollPane);
 	}
 }

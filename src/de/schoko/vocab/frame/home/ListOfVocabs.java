@@ -42,10 +42,13 @@ public class ListOfVocabs extends JPanel {
 		this.add(area, BorderLayout.CENTER);
 		JPanel bottomArea = new JPanel();
 		bottomArea.setLayout(null);
-		bottomArea.setPreferredSize(new Dimension(300, 20));
-		bottomArea.setBackground(Color.YELLOW);
+		bottomArea.setPreferredSize(new Dimension(300, 40));
+		bottomArea.setBackground(null);
 		addButton(bottomArea, Strings.BUTTON_SETTINGS, "⁉", (event) -> {
 			vocabInfoPanel.displaySettings();
+		});
+		addButton(bottomArea, Strings.BUTTON_INFO, "🛈", (event) -> {
+			vocabInfoPanel.displayInfo();
 		});
 		this.add(bottomArea, BorderLayout.SOUTH);
 		this.update("");

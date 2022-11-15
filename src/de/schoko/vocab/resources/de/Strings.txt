@@ -9,6 +9,7 @@ BUTTON_CONFIRM = Bestätigen
 BUTTON_CONTINUE = Weiter
 BUTTON_EDIT = Bearbeiten
 BUTTON_ENTER = Eingeben
+BUTTON_INFO = Über
 BUTTON_NEW = Neu
 BUTTON_RELOAD = Neu laden
 BUTTON_RETRY = Erneut versuchen
