@@ -24,6 +24,9 @@ public class Preloader {
 	private String languageLocation = "";
 	private String languageCode;
 	
+	private String version = "Unknown";
+	private String commit = "Unknown";
+	
 	private VocabLoader vocabLoader;
 	private Settings settings;
 	
@@ -77,17 +80,17 @@ public class Preloader {
 		}
 		Logging.logInfo("Running java version " + System.getProperty("java.version"));
 		
-		String version = "Unknown";
 		try {
 			InputStream in = getClass().getResourceAsStream(InternalResourceList.VERSION_LOCATION);
 			BufferedReader fileReader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
 			version = fileReader.readLine();
+			commit = fileReader.readLine();
 			in.close();
 			fileReader.close();
 		} catch (IOException e) {
 			Logging.logException(e);
 		}
-		Logging.logInfo("Vocabulary Version " + version);
+		Logging.logInfo("Vocabulary Version " + version.trim() + " (Commit " + commit + ")");
 	}
 	
 	private String checkAndCreateDir(String path) throws LoadException {
@@ -163,5 +166,13 @@ public class Preloader {
 	
 	public String languageCode() {
 		return languageCode;
+	}
+	
+	public String getVersion() {
+		return version;
+	}
+	
+	public String getCommit() {
+		return commit;
 	}
 }
