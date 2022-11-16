@@ -1,8 +1,9 @@
 package de.schoko.vocab.frame.home;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.Font;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -12,25 +13,36 @@ import de.schoko.vocab.Preloader;
 import de.schoko.vocab.Settings;
 import de.schoko.vocab.resources.InternalResourceList;
 import de.schoko.vocab.resources.Strings;
+import de.schoko.vocab.resources.Style;
 
 public class SettingsPanel extends JPanel {
 	private static final long serialVersionUID = -4131792053126979265L;
+	private JPanel settingPanel;
+	private JPanel bottomPanel;
 	
 	public SettingsPanel() {
 		super();
-		this.setLayout(null);
-
-		Font font = getFont();
-		setFont(font.deriveFont(15.0f));
+		this.setLayout(new BorderLayout());
+		
+		settingPanel = new JPanel();
+		settingPanel.setLayout(null);
+		
+		bottomPanel = new JPanel();
+		bottomPanel.setLayout(new BorderLayout());
+		
+		this.add(settingPanel, BorderLayout.CENTER);
+		this.add(bottomPanel, BorderLayout.SOUTH);
 		this.display();
 	}
 	
-	public void display() {
-		this.removeAll();
-		this.setBorder(new TitledBorder(Strings.MENU_SETTINGS));
+	private void display() {
+		settingPanel.removeAll();
+		bottomPanel.removeAll();
 		
-		final Settings settings = Preloader.get().getSettings();
+		setFont(Style.INFO_FONT);
+		settingPanel.setBorder(new TitledBorder(Strings.MENU_SETTINGS));
 		
+		Settings settings = Preloader.get().getSettings().derive();
 		JComboBox<String> jcomboBox = new JComboBox<>(InternalResourceList.SUPPORTED_LANGUAGES);
 		
 		int index = -1;
@@ -52,6 +64,12 @@ public class SettingsPanel extends JPanel {
 				Strings.DISPLAY_USED_LANGUAGE,
 				Strings.fillIn(Strings.DISPLAY_WORKSPACE_LOCATION, settings.getWorkspaceLocation().replaceAll("\\\\", "/")),
 				""});
+		
+		JButton confirmButton = new JButton(Strings.BUTTON_CONFIRM);
+		confirmButton.addActionListener((event) -> {
+			Preloader.get().getSettings().deriveUpdate(settings);
+		});
+		bottomPanel.add(confirmButton, BorderLayout.EAST);
 	}
 	
 	public void placeAt(Component c, int index) {
@@ -60,7 +78,7 @@ public class SettingsPanel extends JPanel {
 	
 	public void placeAt(Component c, int index, int xOffset, int yOffset, int width, int height) {
 		c.setBounds(15 + xOffset, index * 25 + 15 + yOffset, width, height);
-		this.add(c);
+		settingPanel.add(c);
 	}
 	
 	public void displayText(String[] text) {

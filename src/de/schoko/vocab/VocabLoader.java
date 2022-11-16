@@ -21,6 +21,10 @@ public class VocabLoader {
 	public VocabLoader() {
 		this.existingVocab = new HashMap<>();
 	}
+
+	public void reset() {
+		this.existingVocab = new HashMap<>();
+	}
 	
 	public Vocab loadFromFile(String name) {
 		if (existingVocab.containsKey(name)) {

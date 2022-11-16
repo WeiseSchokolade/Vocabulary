@@ -19,7 +19,7 @@ public class Settings {
 	 * <br>
 	 * <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">List Of ISO 639-1 Codes On Wikipedia</a>
 	 */
-	@Saved
+	@Saved(needsRestart=true)
 	private String languageCode = "en";
 	private String workspaceLocation;
 	
@@ -53,6 +53,10 @@ public class Settings {
 		} else {
 			languageCode = Locale.getDefault().getLanguage();
 		}
+	}
+	
+	private Settings() {
+		
 	}
 	
 	public void save() {
@@ -93,6 +97,68 @@ public class Settings {
 
 	public void setLanguage(String languageCode) {
 		this.languageCode = languageCode;
+	}
+	
+	public void apply() {
 		Preloader.get().loadLanguage(languageCode);
+	}
+	
+	public Settings derive() {
+		Settings settings = new Settings();
+		for (Field field : settings.getClass().getDeclaredFields()) {
+			if (field.isAnnotationPresent(Saved.class)) {
+				try {
+					field.set(settings, this.getClass().getDeclaredField(field.getName()).get(this));
+				} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		settings.workspaceLocation = this.workspaceLocation;
+		return settings;
+	}
+	
+	public void deriveUpdate(Settings settings) {
+		boolean needsRestart = false;
+		
+		for (Field field : this.getClass().getDeclaredFields()) {
+			Saved savedAnnotation;
+			if ((savedAnnotation = field.getAnnotation(Saved.class)) != null) {
+				try {
+					Field otherField = settings.getClass().getDeclaredField(field.getName());
+					if (!field.get(this).equals(otherField)) {
+						if (savedAnnotation.needsRestart()) {
+							needsRestart = true;
+						}
+						field.set(this, otherField.get(settings));
+					}
+				} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		this.apply();
+		
+		if (needsRestart) {
+			Preloader.get().getVocabLoader().reset();
+			GenericDataHolder.mainMenu();
+		}
+	}
+	
+	public String toString() {
+		String ret = getClass().getSimpleName() + "[";
+		for (int i = 0; i < getClass().getDeclaredFields().length; i++) {
+			Field field = getClass().getDeclaredFields()[i];
+			try {
+				ret += field.getName() + "=" + field.get(this);
+			} catch (IllegalArgumentException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
+			if (i != getClass().getDeclaredFields().length - 1) {
+				ret += ", ";
+			}
+		}
+		ret += "]";
+		return ret;
 	}
 }
