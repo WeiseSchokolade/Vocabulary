@@ -65,8 +65,8 @@ public class VocabLoader {
 					break;
 				}
 				if (readLines == 1) {
-					if (line.startsWith("#info")) {
-						String subStr = line.substring("#info".length());
+					if (line.startsWith(Vocab.DATA_LINE)) {
+						String subStr = line.substring(Vocab.DATA_LINE.length());
 						String[] strData = subStr.split("\\|");
 						if (strData.length >= 2) {
 							data.setFirstLanguageCode(strData[0]);

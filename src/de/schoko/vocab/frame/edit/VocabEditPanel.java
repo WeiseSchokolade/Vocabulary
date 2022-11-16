@@ -19,6 +19,7 @@ import javax.swing.JTextArea;
 import de.schoko.utility.Logging;
 import de.schoko.vocab.GenericDataHolder;
 import de.schoko.vocab.Preloader;
+import de.schoko.vocab.VocabData;
 import de.schoko.vocab.VocabLoader;
 import de.schoko.vocab.exceptions.NotLoadableException;
 import de.schoko.vocab.frame.Window;
@@ -30,22 +31,30 @@ public class VocabEditPanel extends JPanel {
 	private CheckingFrame checkingFrame;
 	private TextFrame styleguideFrame;
 	
+	private VocabData data = null;
+	private File file;
+	private JTextArea textArea;
+	
 	public VocabEditPanel(File file) {
 		this.setLayout(new BorderLayout());
+		this.file = file;
 		checkingFrame = new CheckingFrame();
 		styleguideFrame = new TextFrame(() -> {
 			return Preloader.get().getStyleguideText();
 		});
 		
-		String text = "un exemple - ein Beispiel";
 		try {
 			Logging.logInfo(file.toPath().toString());
-			text = Files.readString(file.toPath(), Charset.forName("Cp1252"));
+			data = VocabData.createFromText(Files.readString(file.toPath(), Charset.forName("Cp1252")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		if (data == null) {
+			data = new VocabData();
+		}
+		String text = data.getStrippedSourceText();
 		
-		JTextArea textArea = new JTextArea(text);
+		textArea = new JTextArea(text);
 		textArea.setFont(getFont().deriveFont(20.0f));
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		this.add(scrollPane, BorderLayout.CENTER);
@@ -54,16 +63,7 @@ public class VocabEditPanel extends JPanel {
 		JMenu fileMenu = new JMenu(Strings.MENUBAR_FILE);
 		JMenuItem saveItem = new JMenuItem(Strings.MENUBAR_FILE_SAVE);
 		saveItem.addActionListener((event) -> {
-			try {
-				FileWriter fileWriter = new FileWriter(file);
-				fileWriter.write(textArea.getText());
-				Logging.logInfo("Saved file " + file.getAbsolutePath());
-				fileWriter.close();
-				String vocabLocalPath = file.getAbsolutePath().substring(Preloader.get().getVocabLocation().length() + 1);
-				Preloader.get().getVocabLoader().reloadFromFile(vocabLocalPath);
-			} catch (IOException e) {
-				Logging.logException(e);
-			}
+			saveFile();
 		});
 		saveItem.setMnemonic(KeyEvent.VK_S);
 		fileMenu.add(saveItem);
@@ -88,16 +88,7 @@ public class VocabEditPanel extends JPanel {
 				return;
 			}
 			if (response == JOptionPane.YES_OPTION) {
-				try {
-					FileWriter fileWriter = new FileWriter(file);
-					fileWriter.write(textArea.getText());
-					Logging.logInfo("Saved file " + file.getAbsolutePath());
-					fileWriter.close();
-					String vocabLocalPath = file.getAbsolutePath().substring(Preloader.get().getVocabLocation().length() + 1);
-					Preloader.get().getVocabLoader().reloadFromFile(vocabLocalPath);
-				} catch (IOException e) {
-					Logging.logException(e);
-				}
+				saveFile();
 			}
 			this.checkingFrame.dispose();
 			this.checkingFrame.setVisible(false);
@@ -115,5 +106,20 @@ public class VocabEditPanel extends JPanel {
 		helpMenu.add(styleguideItem);
 		menuBar.add(helpMenu);
 		Window.get().setJMenuBar(menuBar);
+	}
+	
+	private void saveFile() {
+		FileWriter fileWriter;
+		try {
+			fileWriter = new FileWriter(file);
+			data.setSourceText(textArea.getText());
+			fileWriter.write(data.getUnstrippedSourceText());
+			Logging.logInfo("Saved file " + file.getAbsolutePath());
+			fileWriter.close();
+			String vocabLocalPath = file.getAbsolutePath().substring(Preloader.get().getVocabLocation().length() + 1);
+			Preloader.get().getVocabLoader().reloadFromFile(vocabLocalPath);
+		} catch (IOException e) {
+			Logging.logException(e);
+		}
 	}
 }

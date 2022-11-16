@@ -32,6 +32,8 @@ public class Vocab {
 	
 	private int order = RANDOM_ORDER;
 	
+	public static final String DATA_LINE = "#info";
+	
 	private File sourceFile;
 	
 	public Vocab(String name, VocabPair[] vocabulary, File sourceFile, String firstLanguageCode, String secondLanguageCode) {
