@@ -43,22 +43,23 @@ public class SettingsPanel extends JPanel {
 		settingPanel.setBorder(new TitledBorder(Strings.MENU_SETTINGS));
 		
 		Settings settings = Preloader.get().getSettings().derive();
-		JComboBox<String> jcomboBox = new JComboBox<>(InternalResourceList.SUPPORTED_LANGUAGES);
-		
+		String[] translatedOptions = InternalResourceList.SUPPORTED_LANGUAGES.clone();
 		int index = -1;
-		for (int i = 0; i < InternalResourceList.SUPPORTED_LANGUAGES.length; i++) {
-			String s = InternalResourceList.SUPPORTED_LANGUAGES[i];
-			if (s.equalsIgnoreCase(settings.getLanguageCode())) {
+		for (int i = 0; i < translatedOptions.length; i++) {
+			if (translatedOptions[i].equalsIgnoreCase(settings.getLanguageCode())) {
 				index = i;
 			}
+			translatedOptions[i] = Strings.getTranslation("LANGUAGE_" + translatedOptions[i].toUpperCase());
 		}
+		
+		JComboBox<String> jcomboBox = new JComboBox<>(translatedOptions);
 		jcomboBox.setSelectedIndex(index);
 		jcomboBox.addActionListener((event) -> {
 			settings.setLanguage(InternalResourceList.SUPPORTED_LANGUAGES[jcomboBox.getSelectedIndex()]);
 		});
 		jcomboBox.setFocusable(false);
 		
-		placeAt(jcomboBox, 0, 150, 2, 50, 20);
+		placeAt(jcomboBox, 0, 150, 2, 100, 20);
 		
 		displayText(new String[]{
 				Strings.DISPLAY_USED_LANGUAGE,

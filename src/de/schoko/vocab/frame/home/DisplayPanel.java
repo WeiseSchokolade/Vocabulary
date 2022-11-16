@@ -57,7 +57,7 @@ public class DisplayPanel extends JPanel {
 		displayText(new String[]{
 				vocab.getName(),
 				Strings.fillIn(Strings.DISPLAY_WORDS, vocab.getVocabulary().length),
-				Strings.fillIn(Strings.DISPLAY_ASKED_LANGUAGE, vocab.getFirstLanguage()),
+				Strings.fillIn(Strings.DISPLAY_ASKED_LANGUAGE, Strings.getTranslation("LANGUAGE_" + vocab.getFirstLanguage())),
 				Strings.DISPLAY_ORDER + ":",
 				""});
 	}

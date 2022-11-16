@@ -48,6 +48,7 @@ public class VocabLoader {
 			
 			InputStream input = new FileInputStream(file);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+			VocabData data = new VocabData();
 			ArrayList<VocabPair> vocab = new ArrayList<>();
 			boolean goOn = true;
 			int readLines = 0;
@@ -62,6 +63,17 @@ public class VocabLoader {
 				if (line == null) {
 					goOn = false;
 					break;
+				}
+				if (readLines == 1) {
+					if (line.startsWith("#info")) {
+						String subStr = line.substring("#info".length());
+						String[] strData = subStr.split("\\|");
+						if (strData.length >= 2) {
+							data.setFirstLanguageCode(strData[0]);
+							data.setSecondLanguageCode(strData[1]);
+						}
+						continue;
+					}
 				}
 				try {
 					VocabPair loadedVocabPair = loadLine(line.trim());
@@ -81,7 +93,7 @@ public class VocabLoader {
 				vocabulary[i] = vocab.get(i);
 			}
 			
-			Vocab loadedVocab = new Vocab(name, vocabulary, file);
+			Vocab loadedVocab = new Vocab(name, vocabulary, file, data.getFirstLanguageCode(), data.getSecondLanguageCode());
 			existingVocab.put(name, loadedVocab);
 			return loadedVocab;
 		} catch (IOException e) {

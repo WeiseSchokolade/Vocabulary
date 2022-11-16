@@ -1,7 +1,6 @@
 package de.schoko.vocab;
 
 import de.schoko.vocab.exceptions.VocabCompleteException;
-import de.schoko.vocab.resources.Strings;
 
 import java.io.File;
 import java.util.Arrays;
@@ -15,8 +14,8 @@ public class Vocab {
 	private String name;
 	private VocabPair[] vocabulary;
 	private int current = 0;
-	private String firstLanguage = Strings.LANGUAGE_FIRST;
-	private String secondLanguage = Strings.LANGUAGE_SECOND;
+	private String firstLanguageCode;
+	private String secondLanguageCode;
 	private boolean displayFirst = false;
 	
 	private VocabPair lastWords;
@@ -35,10 +34,12 @@ public class Vocab {
 	
 	private File sourceFile;
 	
-	public Vocab(String name, VocabPair[] vocabulary, File sourceFile) {
+	public Vocab(String name, VocabPair[] vocabulary, File sourceFile, String firstLanguageCode, String secondLanguageCode) {
 		this.name = name;
 		this.vocabulary = vocabulary;
 		this.sourceFile = sourceFile;
+		this.firstLanguageCode = firstLanguageCode;
+		this.secondLanguageCode = secondLanguageCode;
 		enteredWords = new String[vocabulary.length];
 		correctWords = new boolean[vocabulary.length];
 		for (VocabPair pair : this.vocabulary) {
@@ -60,10 +61,10 @@ public class Vocab {
 	}
 	
 	public Vocab copy() {
-		Vocab copy = new Vocab(name, vocabulary, sourceFile);
+		Vocab copy = new Vocab(name, vocabulary, sourceFile, firstLanguageCode, secondLanguageCode);
 		copy.order = this.order;
 		copy.displayFirst = this.displayFirst;
-		copy.firstLanguage = this.firstLanguage;
+		copy.firstLanguageCode = this.firstLanguageCode;
 		return copy;
 	}
 	
@@ -147,19 +148,19 @@ public class Vocab {
 	}
 
 	public String getFirstLanguage() {
-		return firstLanguage;
+		return firstLanguageCode;
 	}
 
 	public void setFirstLanguage(String firstLanguage) {
-		this.firstLanguage = firstLanguage;
+		this.firstLanguageCode = firstLanguage;
 	}
 	
 	public String getSecondLanguage() {
-		return secondLanguage;
+		return secondLanguageCode;
 	}
 	
 	public void setSecondLanguage(String secondLanguage) {
-		this.secondLanguage = secondLanguage;
+		this.secondLanguageCode = secondLanguage;
 	}
 	
 	public VocabPair getLastWordPair() {

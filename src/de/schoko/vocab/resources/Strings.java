@@ -44,8 +44,9 @@ public class Strings {
 			GRADE_F = "GRADE_F",
 			HEADER_CORRECT = "HEADER_CORRECT",
 			HEADER_ENTERED = "HEADER_ENTERED",
-			LANGUAGE_FIRST = "LANGUAGE_FIRST",
-			LANGUAGE_SECOND = "LANGUAGE_SECOND",
+			LANGUAGE_DE = "LANGUAGE_DE",
+			LANGUAGE_EN = "LANGUAGE_EN",
+			LANGUAGE_FR = "LANGUAGE_FR",
 			LOADING = "LOADING",
 			MENU_MISTAKES = "MENU_MISTAKES",
 			MENU_SETTINGS = "MENU_SETTINGS",
@@ -99,5 +100,14 @@ public class Strings {
 			ret = ret.replaceFirst("%s", values[i]);
 		}
 		return ret;
+	}
+	
+	public static String getTranslation(String name) {
+		try {
+			return (String) Strings.class.getDeclaredField(name).get(null);
+		} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
