@@ -129,7 +129,12 @@ public class VocabInfoPanel extends JPanel {
 				"TO DO", // TODO Here are tasks that need to be done.
 				"- Add/configure launch4j",
 				"- Configure style",
-				"- Confirm Button for Settings Menu",
+				"- Translation for 'About' menu",
+				"- Translation for styleguide",
+				"- Scroll Support for 'Settings' menu",
+				"- Delete Button for vocab",
+				"- Animations and more colors?",
+				"- Add fallback language for missing translations?",
 				"- Website?",
 				"- Support for Java 8?"
 		};
