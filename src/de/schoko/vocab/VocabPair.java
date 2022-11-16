@@ -63,7 +63,7 @@ public class VocabPair {
 	
 	public String getSolutionString() {
 		if (type == PHRASE_WITH_GAP) {
-			return firstLanguagePair[0].replaceAll(" _ ", " <u><i>" + secondLanguagePair[0] + "</i></u>");
+			return firstLanguagePair[0].replaceAll(" _ ", "<u><i>" + secondLanguagePair[0] + "</i></u>");
 		}
 		
 		if (vocab.getDisplayFirst()) {
@@ -87,11 +87,11 @@ public class VocabPair {
 
 	public String getPrompt() {
 		if (type == EQUALLY_TRANSLATED_PAIR) {
-			String language = vocab.getFirstLanguage();
+			String languageCode = vocab.getFirstLanguage();
 			if (vocab.getDisplayFirst()) {
-				language = vocab.getSecondLanguage();
+				languageCode = vocab.getSecondLanguage();
 			}
-			return Strings.fillIn(Strings.PROMPT_TRANSLATE, language);
+			return Strings.fillIn(Strings.PROMPT_TRANSLATE, Strings.getTranslation("LANGUAGE_" + languageCode));
 		} else if (type == PHRASE_WITH_GAP) {
 			return Strings.PROMPT_FILL_IN_GAP;
 		}
