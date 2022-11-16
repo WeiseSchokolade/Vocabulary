@@ -34,6 +34,10 @@ public class Vocab {
 	
 	public static final String DATA_LINE = "#info";
 	
+	public static final String[] SUPPORTED_LANGUAGES = {
+			"EN", "DE", "FR", "EO", "ES", "IT", "JA", "KO", "LA", "PT", "RU", "TR", "ZH"
+	};
+	
 	private File sourceFile;
 	
 	public Vocab(String name, VocabPair[] vocabulary, File sourceFile, String firstLanguageCode, String secondLanguageCode) {

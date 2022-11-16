@@ -1,6 +1,5 @@
 package de.schoko.vocab.frame.asking;
 
-import java.awt.GridLayout;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
@@ -20,8 +19,6 @@ public class InfoBar extends BottomInfoBar {
 		this.info = new String[]{GenericDataHolder.getVocab().getName(),
 				"", 
 				Strings.fillIn(Strings.DISPLAY_INFO, new String[]{"0", "0", "0"})};
-		
-		this.setLayout(new GridLayout(1, info.length));
 		this.labels = new ArrayList<>();
 		
 		for (int i = 0; i < info.length; i++) {

@@ -79,7 +79,6 @@ public class VocabEditPanel extends JPanel {
 		});
 		checkItem.setMnemonic(KeyEvent.VK_C);
 		fileMenu.add(checkItem);
-		menuBar.add(fileMenu);
 		
 		JMenuItem closeItem = new JMenuItem(Strings.MENUBAR_FILE_CLOSE);
 		closeItem.addActionListener((event) -> {
@@ -97,6 +96,7 @@ public class VocabEditPanel extends JPanel {
 			GenericDataHolder.mainMenu();
 		});
 		fileMenu.add(closeItem);
+		menuBar.add(fileMenu);
 		
 		JMenu helpMenu = new JMenu(Strings.MENUBAR_HELP);
 		JMenuItem styleguideItem = new JMenuItem(Strings.MENUBAR_HELP_STYLEGUIDE);
@@ -106,6 +106,8 @@ public class VocabEditPanel extends JPanel {
 		helpMenu.add(styleguideItem);
 		menuBar.add(helpMenu);
 		Window.get().setJMenuBar(menuBar);
+		
+		Window.get().setBottomInfoBar(new EditBar(data));
 	}
 	
 	private void saveFile() {
