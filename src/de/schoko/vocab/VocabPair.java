@@ -66,11 +66,7 @@ public class VocabPair {
 			return firstLanguagePair[0].replaceAll(" _ ", "<u><i>" + secondLanguagePair[0] + "</i></u>");
 		}
 		
-		if (vocab.getDisplayFirst()) {
-			return firstLanguagePair[0] + " - " + secondLanguagePair[0];
-		} else {
-			return secondLanguagePair[0] + " - " + firstLanguagePair[0];
-		}
+		return firstLanguagePair[0] + " - " + secondLanguagePair[0];
 	}
 	
 	protected String[] getLanguage(boolean getFirstLanguage) {
