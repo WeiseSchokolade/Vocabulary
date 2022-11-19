@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.io.File;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -38,13 +39,16 @@ public class VocabInfoPanel extends JPanel {
 	public void setVocabInfoLayout() {
 		JPanel bottomPanel = new JPanel();
 		bottomPanel.setLayout(new BorderLayout());
+		JPanel startPanel = new JPanel();
 		confirmButton = new JButton(Strings.BUTTON_START);
 		confirmButton.setFont(Style.BUTTON_FONT);
 		confirmButton.addActionListener((event) -> {
 			GenericDataHolder.start(vocab);
 		});
-		bottomPanel.add(confirmButton, BorderLayout.EAST);
+		startPanel.add(confirmButton);
+		bottomPanel.add(startPanel, BorderLayout.EAST);
 		
+		JPanel editPanel = new JPanel();
 		editButton = new JButton(Strings.BUTTON_EDIT);
 		editButton.addActionListener((event) -> {
 			if (vocab != null) {
@@ -54,7 +58,28 @@ public class VocabInfoPanel extends JPanel {
 			}
 		});
 		editButton.setFont(Style.BUTTON_FONT);
-		bottomPanel.add(editButton, BorderLayout.WEST);
+		editPanel.add(editButton);
+		JButton deleteButton = new JButton(Strings.BUTTON_DELETE);
+		
+		deleteButton.setFont(Style.BUTTON_FONT);
+		deleteButton.addActionListener((event) -> {
+			if (file != null) {
+				int result = JOptionPane.showConfirmDialog(null, Strings.QUESTION_DELETE_FILE, Strings.PROCESS_DELETING_FILE, JOptionPane.OK_CANCEL_OPTION);
+				if (result == JOptionPane.YES_OPTION) {
+					file.delete();
+					File parentDir = file.getParentFile();
+					if (parentDir.list().length == 0) {
+						parentDir.delete();
+					}
+					GenericDataHolder.mainMenu();
+				} else {
+					return;
+				}
+				display(null);
+			}
+		});
+		editPanel.add(deleteButton);
+		bottomPanel.add(editPanel, BorderLayout.WEST);
 		
 		this.add(bottomPanel, BorderLayout.SOUTH);
 		
@@ -68,7 +93,7 @@ public class VocabInfoPanel extends JPanel {
 			this.setVocabInfoLayout();
 			this.setVisible(true);
 			this.vocab = vocab;
-			this.file = null;
+			this.file = vocab.getSourceFile();
 			this.panel.display(vocab);
 			confirmButton.setEnabled(true);
 			confirmButton.requestFocusInWindow();
@@ -123,7 +148,7 @@ public class VocabInfoPanel extends JPanel {
 		final String[] texts = {
 				"Version: " + Preloader.get().getVersion().trim() + " (Commit " + Preloader.get().getCommit() + ")",
 				"Made by WeiseSchokolade",
-				"Source code can be found at https://github.com/WeiseSchokolade/Vocabulary",
+				"Source code ca)n be found at https://github.com/WeiseSchokolade/Vocabulary",
 				"",
 				"",
 				"TO DO", // TODO Here are tasks that need to be done.
@@ -132,7 +157,6 @@ public class VocabInfoPanel extends JPanel {
 				"- Translation for 'About' menu",
 				"- Translation for styleguide",
 				"- Scroll Support for 'Settings' menu",
-				"- Delete Button for vocab",
 				"- Animations and more colors?",
 				"- Add fallback language for missing translations?",
 				"- Website?",

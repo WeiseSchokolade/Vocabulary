@@ -32,7 +32,10 @@ public class ListOfVocabs extends JPanel {
 	private JPanel area;
 	private VocabInfoPanel vocabInfoPanel;
 	
+	private static ListOfVocabs instance;
+	
 	public ListOfVocabs(VocabInfoPanel vocabInfoPanel) {
+		instance = this;
 		this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(300, 500));
 		this.vocabInfoPanel = vocabInfoPanel;
@@ -51,6 +54,10 @@ public class ListOfVocabs extends JPanel {
 		});
 		this.add(bottomArea, BorderLayout.SOUTH);
 		this.update("");
+	}
+	
+	public static ListOfVocabs get() {
+		return instance;
 	}
 	
 	public void update(String path) {

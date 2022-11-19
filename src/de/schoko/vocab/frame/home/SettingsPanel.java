@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
 
 import de.schoko.vocab.Preloader;
@@ -30,7 +31,9 @@ public class SettingsPanel extends JPanel {
 		bottomPanel = new JPanel();
 		bottomPanel.setLayout(new BorderLayout());
 		
-		this.add(settingPanel, BorderLayout.CENTER);
+		JScrollPane scrollPane = new JScrollPane(settingPanel);
+		scrollPane.setBorder(null);
+		this.add(scrollPane, BorderLayout.CENTER);
 		this.add(bottomPanel, BorderLayout.SOUTH);
 		this.display();
 	}
