@@ -69,7 +69,7 @@ public class Preloader {
 			String s = "";
 			String line;
 			while ((line = fileReader.readLine()) != null) {
-				s += line + "<br>";
+				s += line + System.lineSeparator();
 			}
 			this.styleguideText = s;
 			

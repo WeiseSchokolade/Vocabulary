@@ -2,19 +2,20 @@ package de.schoko.vocab.frame.edit;
 
 import java.awt.Dimension;
 
-import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 import de.schoko.utility.ImgGetter;
 import de.schoko.vocab.frame.Window;
 import de.schoko.vocab.resources.InternalResourceList;
 import de.schoko.vocab.resources.Strings;
+import de.schoko.vocab.resources.Style;
 
 public class TextFrame extends JFrame {
 	private static final long serialVersionUID = -1447766974767767484L;
 	
-	private JEditorPane editorPane;
+	private JTextArea editorPane;
 	
 	private TextSource textSource;
 	
@@ -24,7 +25,8 @@ public class TextFrame extends JFrame {
 		this.setTitle(Strings.MENU_STYLEGUIDE);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		
-		editorPane = new JEditorPane("text/html", textSource.getText());
+		editorPane = new JTextArea(textSource.getText());
+		editorPane.setFont(Style.INFO_FONT);
 		editorPane.setEditable(false);
 		editorPane.setFont(Window.get().getFont().deriveFont(18.0f));
 		
