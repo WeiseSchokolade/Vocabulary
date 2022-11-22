@@ -32,7 +32,6 @@ public class VocabInfoPanel extends JPanel {
 		SwingUtility.addPadding(this, 15, 15, new String[]{BorderLayout.NORTH, BorderLayout.EAST});
 		
 		setVocabInfoLayout();
-		
 		this.setVisible(false);
 	}
 	

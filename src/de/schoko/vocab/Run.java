@@ -14,7 +14,6 @@ public class Run {
 			SwingUtility.setupSystemLookAndFeel();
 			
 			try {
-				preloader = new Preloader();
 				preloader.load();
 			} catch (LoadException e) {
 				JOptionPane.showMessageDialog(null, "An exception occured while preloading:\n\n" + e.getMessage() + "\n\nPlease report this to the author of the project", "Loading Exception", JOptionPane.ERROR_MESSAGE);
