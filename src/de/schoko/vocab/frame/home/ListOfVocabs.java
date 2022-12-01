@@ -160,7 +160,7 @@ public class ListOfVocabs extends JPanel {
 			}
 			Vocab vocab = loader.loadFromFile(path + s);
 			
-			if (vocab.getVocabulary().length == 0) {
+			if (vocab.getVocabulary().size() == 0) {
 				vocabInfoPanel.displayException(file, Strings.EXCEPTION_NO_VOCAB_FOUND);
 				return;
 			}

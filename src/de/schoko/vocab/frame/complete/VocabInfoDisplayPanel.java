@@ -25,6 +25,7 @@ public class VocabInfoDisplayPanel extends JPanel {
 				Strings.fillIn(Strings.DISPLAY_TOTAL, vocab.getTotal()),
 				Strings.fillIn(Strings.fillIn(Strings.DISPLAY_CORRECT, vocab.getRight()), Math.round((double) vocab.getRight() / (double) vocab.getTotal() * 100)),
 				Strings.fillIn(Strings.fillIn(Strings.DISPLAY_WRONG, vocab.getWrong()), Math.round((double) vocab.getWrong() / (double) vocab.getTotal() * 100)),
+				Strings.fillIn(Strings.DISPLAY_SKIPPED,  vocab.getSkipped()),
 				"",
 				"",
 				Strings.fillIn(Strings.DISPLAY_GRADE,calcGrade((double) vocab.getRight() / (double) vocab.getTotal())),

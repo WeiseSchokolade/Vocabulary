@@ -87,6 +87,15 @@ public class InputPanel extends JPanel {
 		Window.get().repaint();
 	}
 	
+	public void skip() {
+		Vocab vocab = GenericDataHolder.getVocab();
+		vocab.skip();
+		textField.setText("");
+		promptLabel.setText(GenericDataHolder.getVocab().getCurrentPair().getPrompt());
+		confirmButton.setEnabled(false);
+		Window.get().repaint();
+	}
+	
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);

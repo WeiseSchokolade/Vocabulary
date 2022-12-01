@@ -3,16 +3,15 @@ package de.schoko.vocab;
 import de.schoko.vocab.exceptions.VocabCompleteException;
 
 import java.io.File;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 import de.schoko.utility.Logging;
 import de.schoko.utility.StringUtility;
 
 public class Vocab {
 	private String name;
-	private VocabPair[] vocabulary;
+	private ArrayList<VocabPair> vocabulary;
 	private int current = 0;
 	private String firstLanguageCode;
 	private String secondLanguageCode;
@@ -25,7 +24,8 @@ public class Vocab {
 	private int total = 0;
 	private int right = 0;
 	private int wrong = 0;
-
+	private int skipped = 0;
+	
 	public static final int FORWARDS_ORDER = 0;
 	public static final int BACKWARDS_ORDER = 1;
 	public static final int RANDOM_ORDER = 2;
@@ -40,14 +40,14 @@ public class Vocab {
 	
 	private File sourceFile;
 	
-	public Vocab(String name, VocabPair[] vocabulary, File sourceFile, String firstLanguageCode, String secondLanguageCode) {
+	public Vocab(String name, ArrayList<VocabPair> vocabulary, File sourceFile, String firstLanguageCode, String secondLanguageCode) {
 		this.name = name;
 		this.vocabulary = vocabulary;
 		this.sourceFile = sourceFile;
 		this.firstLanguageCode = firstLanguageCode;
 		this.secondLanguageCode = secondLanguageCode;
-		enteredWords = new String[vocabulary.length];
-		correctWords = new boolean[vocabulary.length];
+		enteredWords = new String[vocabulary.size()];
+		correctWords = new boolean[vocabulary.size()];
 		for (VocabPair pair : this.vocabulary) {
 			pair.init(this);
 		}
@@ -57,11 +57,10 @@ public class Vocab {
 		if (order == FORWARDS_ORDER) {
 			current = 0;
 		} else if (order == BACKWARDS_ORDER) {
-			current = vocabulary.length - 1;
+			current = vocabulary.size() - 1;
 		} else if (order == RANDOM_ORDER) {
 			current = 0;
-			List<VocabPair> asList = Arrays.asList(vocabulary);
-			Collections.shuffle(asList);
+			Collections.shuffle(vocabulary);
 		}
 		Logging.logInfo("Started vocabulary " + name);
 	}
@@ -75,7 +74,7 @@ public class Vocab {
 	}
 	
 	public boolean checkAndNext(String s) throws VocabCompleteException {
-		VocabPair currentPair = vocabulary[current];
+		VocabPair currentPair = vocabulary.get(current);
 		String[] solution = currentPair.getSolutions();
 		
 		boolean correct = (StringUtility.unifiedContains(solution, s));
@@ -92,7 +91,7 @@ public class Vocab {
 		enteredWords[current] = s;
 		
 		if (order == FORWARDS_ORDER || order == RANDOM_ORDER) {
-			if (current + 1 >= vocabulary.length) {
+			if (current + 1 >= vocabulary.size()) {
 				throw new VocabCompleteException();
 			}
 			current++;
@@ -103,27 +102,34 @@ public class Vocab {
 			current--;
 		}
 		
-		
 		return correct;
+	}
+	
+	public void skip() {
+		if (current == vocabulary.size() - 1) {
+			return;
+		}
+		vocabulary.add(vocabulary.remove(current));
+		skipped++;
 	}
 
 	public String[] getDisplayedSolutions() {
-		String[] ret = new String[vocabulary.length];
+		String[] ret = new String[vocabulary.size()];
 		for (int i = 0; i < ret.length; i++) {
-			ret[i] = vocabulary[i].getDisplayedSolution();
+			ret[i] = vocabulary.get(i).getDisplayedSolution();
 		}
 		return ret;
 	}
 	
 	public String getAskedPhrase() {
-		return vocabulary[current].getAskedPhrase();
+		return vocabulary.get(current).getAskedPhrase();
 	}
 	
 	private String[][] getSide(boolean isFirstSide) {
-		String[][] ret = new String[vocabulary.length][];
+		String[][] ret = new String[vocabulary.size()][];
 		
 		for (int i = 0; i < ret.length; i++) {
-			ret[i] = vocabulary[i].getLanguage(isFirstSide);
+			ret[i] = vocabulary.get(i).getLanguage(isFirstSide);
 		}
 		
 		return ret;
@@ -141,7 +147,7 @@ public class Vocab {
 		return this.name;
 	}
 	
-	public VocabPair[] getVocabulary() {
+	public ArrayList<VocabPair> getVocabulary() {
 		return vocabulary;
 	}
 	
@@ -150,7 +156,7 @@ public class Vocab {
 	}
 	
 	public VocabPair getCurrentPair() {
-		return vocabulary[current];
+		return vocabulary.get(current);
 	}
 
 	public String getFirstLanguage() {
@@ -183,6 +189,10 @@ public class Vocab {
 	
 	public int getWrong() {
 		return wrong;
+	}
+	
+	public int getSkipped() {
+		return skipped;
 	}
 	
 	public void setDisplayFirst(boolean displayFirst) {

@@ -40,7 +40,7 @@ public class QuestionSubLabel extends JPanel {
 		
 		JPanel barInnerPanel = new JPanel();
 		barInnerPanel.setLayout(new BorderLayout());
-		progressBar = new JProgressBar(0, vocab.getVocabulary().length * 10);
+		progressBar = new JProgressBar(0, vocab.getVocabulary().size() * 10);
 		progressBar.setBackground(Color.BLACK);
 		progressBar.setForeground(new Color(80, 236, 71));
 		progressBar.setBorderPainted(false);
@@ -98,6 +98,13 @@ public class QuestionSubLabel extends JPanel {
 		backButton.setFont(Style.BUTTON_FONT);
 		southBottomPanel.add(backButton);
 		
+		JButton skipButton = new JButton(Strings.BUTTON_SKIP);
+		skipButton.addActionListener((event) -> {
+			l.skip();
+		});
+		skipButton.setFont(Style.BUTTON_FONT);
+		southBottomPanel.add(skipButton);
+		
 		bottomPanel.add(southBottomPanel, BorderLayout.SOUTH);
 		
 		this.add(bottomPanel);
@@ -121,6 +128,6 @@ public class QuestionSubLabel extends JPanel {
 		String wordsToTranslate = vocab.getAskedPhrase();
 		translationLabel.setText("<html>" + wordsToTranslate + "</html>");
 		progressBar.setValue((int) (progressBarValue));
-		progressBar.setString(vocab.getTotal() + File.separator + vocab.getVocabulary().length);
+		progressBar.setString(vocab.getTotal() + File.separator + vocab.getVocabulary().size());
 	}
 }

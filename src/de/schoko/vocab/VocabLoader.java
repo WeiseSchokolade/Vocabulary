@@ -49,7 +49,7 @@ public class VocabLoader {
 			InputStream input = new FileInputStream(file);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(input));
 			VocabData data = new VocabData();
-			ArrayList<VocabPair> vocab = new ArrayList<>();
+			ArrayList<VocabPair> vocabulary = new ArrayList<>();
 			boolean goOn = true;
 			int readLines = 0;
 			
@@ -78,7 +78,7 @@ public class VocabLoader {
 				try {
 					VocabPair loadedVocabPair = loadLine(line.trim());
 					if (loadedVocabPair != null) {
-						vocab.add(loadedVocabPair);
+						vocabulary.add(loadedVocabPair);
 					}
 				} catch (FileParseException e) {
 					reader.close();
@@ -87,11 +87,6 @@ public class VocabLoader {
 			}
 			reader.close();
 			input.close();
-			
-			VocabPair[] vocabulary = new VocabPair[vocab.size()];
-			for (int i = 0; i < vocabulary.length; i++) {
-				vocabulary[i] = vocab.get(i);
-			}
 			
 			Vocab loadedVocab = new Vocab(name, vocabulary, file, data.getFirstLanguageCode(), data.getSecondLanguageCode());
 			existingVocab.put(name, loadedVocab);
