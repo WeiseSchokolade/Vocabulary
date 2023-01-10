@@ -147,7 +147,7 @@ public class VocabInfoPanel extends JPanel {
 		final String[] texts = {
 				"Version: " + Preloader.get().getVersion().trim() + " (Commit " + Preloader.get().getCommit() + ")",
 				"Made by WeiseSchokolade",
-				"Source code ca)n be found at https://github.com/WeiseSchokolade/Vocabulary",
+				"Source code can be found at https://github.com/WeiseSchokolade/Vocabulary",
 				"",
 				"",
 				"TO DO", // TODO Here are tasks that need to be done.
