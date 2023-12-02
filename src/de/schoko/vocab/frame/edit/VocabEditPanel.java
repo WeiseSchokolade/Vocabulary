@@ -116,7 +116,7 @@ public class VocabEditPanel extends JPanel {
 			fileWriter = new FileWriter(file);
 			data.setSourceText(textArea.getText());
 			fileWriter.write(data.getUnstrippedSourceText());
-			Logging.logInfo("Saved file " + file.getAbsolutePath());
+			Logging.logInfo("Saved file " + file.getAbsolutePath() + " in " + fileWriter.getEncoding());
 			fileWriter.close();
 			String vocabLocalPath = file.getAbsolutePath().substring(Preloader.get().getVocabLocation().length() + 1);
 			Preloader.get().getVocabLoader().reloadFromFile(vocabLocalPath);
