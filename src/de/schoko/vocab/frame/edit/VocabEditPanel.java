@@ -113,7 +113,7 @@ public class VocabEditPanel extends JPanel {
 	private void saveFile() {
 		FileWriter fileWriter;
 		try {
-			fileWriter = new FileWriter(file);
+			fileWriter = new FileWriter(file, Charset.forName("UTF-8"));
 			data.setSourceText(textArea.getText());
 			fileWriter.write(data.getUnstrippedSourceText());
 			Logging.logInfo("Saved file " + file.getAbsolutePath() + " in " + fileWriter.getEncoding());
