@@ -3,14 +3,19 @@ package de.schoko.vocab.frame.home;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.ScrollPane;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 import de.schoko.vocab.GenericDataHolder;
 import de.schoko.vocab.Preloader;
@@ -40,8 +45,10 @@ public class ListOfVocabs extends JPanel {
 		this.setPreferredSize(new Dimension(300, 500));
 		this.vocabInfoPanel = vocabInfoPanel;
 		this.area = new JPanel();
-		this.area.setLayout(null);
-		this.add(area, BorderLayout.CENTER);
+		this.area.setLayout(new BoxLayout(this.area, BoxLayout.Y_AXIS));
+		JScrollPane scrollPane = new JScrollPane(area);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		this.add(scrollPane, BorderLayout.CENTER);
 		JPanel bottomArea = new JPanel();
 		bottomArea.setLayout(null);
 		bottomArea.setPreferredSize(new Dimension(300, 40));
